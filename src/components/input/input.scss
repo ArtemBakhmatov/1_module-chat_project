@@ -1,0 +1,30 @@
+.input {
+    position: relative;
+    width: 100%;
+    margin-top: 20px;
+	&__label {
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--gray);
+		pointer-events: none;
+		position: absolute;
+		transition: all 200ms;
+		top: 8px;
+		left: 0;
+	}
+	&__element {
+		border: none;
+		border-bottom: 1px solid var(--blue);
+		font-size: 13px;
+		font-weight: 500;
+		color: var(--black);
+		height: 30px;
+		outline: 0;
+		width: 100%;
+	}
+}
+.input input:focus + label,
+.input input:not(:placeholder-shown) + label{	
+	top: -10px;
+	font-size: 9px; 
+}

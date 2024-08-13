@@ -1,0 +1,17 @@
+@font-face {
+    font-family: 'Inter 18pt';
+    src: local('../assets/fonts/Inter 18pt Medium'), local('Inter18pt-Medium'),
+        url('../assets/fonts/Inter18pt-Medium.woff2') format('woff2');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Inter 18pt';
+    src: local('../assets/fonts/Inter 18pt SemiBold'), local('Inter18pt-SemiBold'),
+        url('../assets/fonts/Inter18pt-SemiBold.woff2') format('woff2');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+}

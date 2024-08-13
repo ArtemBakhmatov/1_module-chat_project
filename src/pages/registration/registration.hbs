@@ -1,0 +1,22 @@
+<main class="modal">
+    <form action="" class="login-form">
+        <div class="login-form__wrapper">
+            {{> Title label="Регистрация" }}
+            {{> Input type="email" label="Почта" name="email" }}
+            {{> Input type="text" label="Логин" name="login" }}
+            {{> Input type="text" label="Имя" name="first_name" }}
+            {{> Input type="text" label="Фамилия" name="second_name" }}
+            {{> Input type="tel" label="Телефон" name="phone" }}
+            {{> Input type="password" label="Пароль" name="password" }}
+            {{> Input type="password" label="Пароль (ещё раз)" name="password" }}
+            <div class="login-form__buttons">
+                <button class="button button__primary">
+                    Зарегистрироваться
+                </button>
+                <button class="button button__secondary">
+                    Войти
+                </button>
+            </div>
+        </div>
+    </form>
+</main>
