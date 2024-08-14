@@ -1,2 +1,3 @@
 export { Title } from './title';
-export { Input } from './input'
+export { Input } from './input';
+
