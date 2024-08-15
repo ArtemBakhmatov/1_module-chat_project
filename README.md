@@ -10,4 +10,4 @@
 
 ### **Ссылка на netlify**
 
-- «[деплой](https://github.com/facebook/react)»,
+- «[деплой](https://serene-pudding-2e0310.netlify.app/)»,
