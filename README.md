@@ -10,4 +10,4 @@
 
 ### **Ссылка на netlify**
 
-- «[деплой](https://serene-pudding-2e0310.netlify.app/)»,
+- «[деплой](https://subtle-bonbon-179fb1.netlify.app/)»,
