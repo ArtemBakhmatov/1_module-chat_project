@@ -12,7 +12,8 @@ const pages = {
   'profile': [ Pages.ProfilePage ],
   '404': [ Pages.Error404Page ],
   '500': [ Pages.Error500Page ],
-  'chatList': [ Pages.ChatListPage ]
+  'chatList': [ Pages.ChatListPage ],
+  'profileChange': [ Pages.ProfileChangePage]
 };
 
 Object.entries(Components).forEach(([ name, component ]) => {
