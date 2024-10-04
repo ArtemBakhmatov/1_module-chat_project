@@ -1,4 +1,5 @@
 import './profile.scss';
 
-export { default as ProfilePage } from './profile.hbs?raw';
+import Profile from './profile';
 
+export default Profile;

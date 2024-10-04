@@ -1,9 +1,10 @@
 export { NavigatePage } from './navigation';
-export { LoginPage } from './login';
-export { RegistrationPage } from './registration';
-export { ProfilePage } from './profile';
-export { Error404Page } from './404';
-export { Error500Page } from './500';
-export { ChatListPage } from './chatList';
-export { ProfileChangePage } from './profileChange';
+export { default as LoginPage } from './login';
+export { default as RegistrationPage } from './registration';
+export { default as ProfileChangePage } from './profileChange';
+export { default as ProfilePage } from './profile';
+export { default as ChatListPage } from './chatList';
+export { default as Error404Page } from './404';
+export { default as Error500Page } from './500';
+
 

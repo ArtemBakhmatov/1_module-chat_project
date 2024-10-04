@@ -29,29 +29,5 @@
     }
 }
 
-.button {
-    cursor: pointer;
-    font-size: 13px;
-    font-weight: 500;
-    height: 37px;
-    border: none;
-    border-radius: 8px;
-    &__primary {
-        background-color: var(--blue);
-        color: var(--white);
-    }
-    &__secondary {
-        background-color: rgba($color: var(--blue), $alpha: 1.0);
-        color: var(--blue);
-    }
-    &__width {
-        width: 280px;
-    }
-    &:hover {
-        border: 1px solid var(--blue);
-        background-color: var(--white);
-        color: var(--blue);
-    }
-}
 
 

@@ -1,3 +1,5 @@
 import './chatList.scss';
-export { default as ChatListPage } from './chatList.hbs?raw';
 
+import ChatList from './chatList';
+
+export default ChatList;

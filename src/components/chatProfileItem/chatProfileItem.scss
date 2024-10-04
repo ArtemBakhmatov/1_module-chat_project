@@ -1,0 +1,9 @@
+.myMessage {
+    display: none;
+    &_active {
+        display: block;
+    }
+    &:nth-child(2) {
+        color: var(--gray);
+    }
+}
