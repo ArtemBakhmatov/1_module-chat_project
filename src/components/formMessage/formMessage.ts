@@ -82,3 +82,4 @@ export default class formMessage extends Block {
     );
   }
 }
+

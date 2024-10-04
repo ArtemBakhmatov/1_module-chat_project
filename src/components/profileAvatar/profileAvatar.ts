@@ -24,3 +24,5 @@ export default class ProfileAvatar extends Block {
     );
   }
 }
+
+

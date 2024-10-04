@@ -20,3 +20,5 @@ class Link extends Block {
 }
 
 export default Link;
+
+
