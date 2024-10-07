@@ -1,0 +1,24 @@
+.chatProfile {
+    padding: 0 10px;
+    &__block {
+        display: flex;
+        align-items: center;
+        justify-content: end;
+        text-decoration: none;
+        font-size: 12px;
+        line-height: 12px;
+        font-weight: 500;
+        color: var(--gray);
+        &:hover {
+            color: var(--blue);
+            .chatProfile__svg {
+                fill: var(--blue);
+            }
+        }
+    }
+    &__svg {
+        margin-left: 8px;
+       
+    }
+}
+

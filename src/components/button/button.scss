@@ -1,0 +1,58 @@
+.button {
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: 500;
+    height: 37px;
+    border: none;
+    border-radius: 8px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    &__primary {
+        background-color: var(--blue);
+        color: var(--white);
+        &:hover {
+            border: 1px solid var(--blue);
+            background-color: var(--white);
+            color: var(--blue);
+        }
+    }
+    &__secondary {
+        background-color: rgba($color: var(--blue), $alpha: 1.0);
+        color: var(--blue);
+    }
+    &__width {
+        width: 280px;
+    }
+    &__profile {
+        justify-content: start;
+        border-radius: 0px;
+        background-color: var(--white);
+        color: var(--blue);
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+    &__circle {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        cursor: pointer;
+        width: 26px;
+        height: 26px;
+        background-color: var(--blue);
+        border: 1px solid var(--blue);
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        &:hover {
+            background-color: var(--white);
+            .profile__svg {
+                fill: var(--blue);
+            }
+        }
+    }
+}
