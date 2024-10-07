@@ -2,28 +2,32 @@
 import Block from '../../core/Block';
 import { TextareaMessageWrapper } from '../textareaMessage';
 
-export default class formMessage extends Block {
-  constructor(props) {
+interface FormMessageProps {
+  [key: string]: unknown;
+}
+
+export default class FormMessage extends Block {
+  constructor(props: FormMessageProps) {
     super({
       ...props,
       events: {
-        submit: (e) => {
+        submit: (e: Event) => {
           console.log('hello!');
           e.preventDefault();
-          this.onMessage(e);
+          this.onMessage();
         },
       },
       TextareaMessageWrapper: new TextareaMessageWrapper({
         name: 'message',
         placeholder: 'Сообщение',
         classInputError: 'input__error__message',
-        onBlur: (e) => this.onChangeMessage(e),
+        onBlur: (e: FocusEvent) => this.onChangeMessage(e),
       }),
     });
   }
 
-  onChangeMessage(e) {
-    const inputValue = e.target.value;
+  onChangeMessage(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
 
     if (inputValue.length === 0) {
       this.children.TextareaMessageWrapper.setProps({
@@ -37,7 +41,7 @@ export default class formMessage extends Block {
     this.setProps({ message: inputValue });
   }
 
-  onMessage(e) {
+  onMessage() {
     const messageSubmit = this.props.message;
 
     if (messageSubmit === undefined) {

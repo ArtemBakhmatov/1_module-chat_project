@@ -5,15 +5,19 @@ import { TitleElement } from '../title';
 import { InputWrapper } from '../input';
 import { Button } from '../button';
 
+interface FormRegistrationProps {
+  [key: string]: unknown;
+}
+
 export default class FormRegistration extends Block {
-  constructor(props) {
+  constructor(props: FormRegistrationProps) {
     super({
       ...props,
       events: {
         submit: (e) => {
           e.preventDefault();
           console.log('Регистрация');
-          this.onRegistration(e);
+          this.onRegistration();
         },
       },
       TitleRegistration: new TitleElement({
@@ -24,49 +28,49 @@ export default class FormRegistration extends Block {
         label: 'Почта',
         name: 'email',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeEmail(e),
+        onBlur: (e: FocusEvent) => this.onChangeEmail(e),
       }),
       InputLogin: new InputWrapper({
         type: 'text',
         label: 'Логин',
         name: 'login',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeLogin(e),
+        onBlur: (e: FocusEvent) => this.onChangeLogin(e),
       }),
       InputFirstName: new InputWrapper({
         type: 'text',
         label: 'Имя',
         name: 'first_name',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeFirstName(e),
+        onBlur: (e: FocusEvent) => this.onChangeFirstName(e),
       }),
       InputSecondName: new InputWrapper({
         type: 'text',
         label: 'Фамилия',
         name: 'second_name',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeSecondName(e),
+        onBlur: (e: FocusEvent) => this.onChangeSecondName(e),
       }),
       InputPhone: new InputWrapper({
         type: 'tel',
         label: 'Телефон',
         name: 'phone',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangePhone(e),
+        onBlur: (e: FocusEvent) => this.onChangePhone(e),
       }),
       InputPasswordFirst: new InputWrapper({
         type: 'password',
         label: 'Пароль',
         name: 'password',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangePasswordFirst(e),
+        onBlur: (e: FocusEvent) => this.onChangePasswordFirst(e),
       }),
       InputPasswordSecond: new InputWrapper({
         type: 'password',
         label: 'Пароль (ещё раз)',
         name: 'password',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangePasswordSecond(e),
+        onBlur: (e: FocusEvent) => this.onChangePasswordSecond(e),
       }),
       ButtonRegistration: new Button({
         classType: 'button__primary',
@@ -80,8 +84,8 @@ export default class FormRegistration extends Block {
     });
   }
 
-  onChangeEmail(e) {
-    const inputValueEmail = e.target.value;
+  onChangeEmail(e: FocusEvent) {
+    const inputValueEmail = (e.target as HTMLInputElement).value;
     const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
     if (!emailPattern.test(inputValueEmail)) {
@@ -97,8 +101,8 @@ export default class FormRegistration extends Block {
     this.setProps({ email: inputValueEmail });
   }
 
-  onChangeLogin(e) {
-    const inputValueLogin = e.target.value;
+  onChangeLogin(e: FocusEvent) {
+    const inputValueLogin = (e.target as HTMLInputElement).value;
     const loginPattern = /^(?!\d+$)[A-Za-z\d_-]{3,20}$/;
 
     if (!loginPattern.test(inputValueLogin)) {
@@ -115,8 +119,8 @@ export default class FormRegistration extends Block {
     this.setProps({ login: inputValueLogin });
   }
 
-  onChangeFirstName(e) {
-    const inputValueName = e.target.value;
+  onChangeFirstName(e: FocusEvent) {
+    const inputValueName = (e.target as HTMLInputElement).value;
 
     if (inputValueName.length === 0) {
       this.children.InputFirstName.setProps({
@@ -148,8 +152,8 @@ export default class FormRegistration extends Block {
     this.setProps({ first_name: inputValueName });
   }
 
-  onChangeSecondName(e) {
-    const inputValueName = e.target.value;
+  onChangeSecondName(e: FocusEvent) {
+    const inputValueName = (e.target as HTMLInputElement).value;
 
     if (inputValueName.length === 0) {
       this.children.InputSecondName.setProps({
@@ -181,8 +185,8 @@ export default class FormRegistration extends Block {
     this.setProps({ second_name: inputValueName });
   }
 
-  onChangePasswordFirst(e) {
-    const inputValue = e.target.value;
+  onChangePasswordFirst(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue === '12345') {
       this.children.InputPasswordFirst.setProps({ error: true, errorText: 'неверный пароль' });
       return;
@@ -211,8 +215,8 @@ export default class FormRegistration extends Block {
     this.setProps({ passwordFirst: inputValue });
   }
 
-  onChangePasswordSecond(e) {
-    const inputValue = e.target.value;
+  onChangePasswordSecond(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue !== this.props.password) {
       this.children.InputPasswordSecond.setProps({
         error: true,
@@ -224,8 +228,8 @@ export default class FormRegistration extends Block {
     this.setProps({ passwordSecond: inputValue });
   }
 
-  onChangePhone(e) {
-    const inputValue = e.target.value;
+  onChangePhone(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
 
     if (!phonePattern.test(inputValue)) {
@@ -240,7 +244,7 @@ export default class FormRegistration extends Block {
     this.setProps({ phone: inputValue });
   }
 
-  onRegistration(e) {
+  onRegistration() {
     const emailSubmit = this.props.email;
     const loginSubmit = this.props.login;
     const firstNameSubmit = this.props.first_name;

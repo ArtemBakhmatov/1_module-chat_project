@@ -1,5 +1,10 @@
 /* eslint-disable linebreak-style */
-const validateEmailOnSubmit = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+
+const validateEmailOnSubmit = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   if (inputValue === undefined) {
     classComponentChildren.setProps({
       error: true,

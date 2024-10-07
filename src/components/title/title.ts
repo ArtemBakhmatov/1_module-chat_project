@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
+interface TitleElementProps {
+  [key: string]: unknown;
+}
+
 export default class TitleElement extends Block {
-  constructor(props) {
+  constructor(props: TitleElementProps) {
     super({
       ...props,
     });

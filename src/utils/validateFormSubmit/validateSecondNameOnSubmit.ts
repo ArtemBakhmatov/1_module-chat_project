@@ -1,5 +1,10 @@
 /* eslint-disable linebreak-style */
-const validateSecondNameOnSubmit = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+
+const validateSecondNameOnSubmit = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   if (inputValue === undefined) {
     classComponentChildren.setProps({
       error: true,

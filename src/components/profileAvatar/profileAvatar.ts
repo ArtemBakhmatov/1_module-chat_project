@@ -4,8 +4,12 @@
 
 import Block from '../../core/Block';
 
+interface ProfileAvatarProps {
+  [key: string]: unknown;
+}
+
 export default class ProfileAvatar extends Block {
-  constructor(props) {
+  constructor(props: ProfileAvatarProps) {
     super({
       ...props,
     });

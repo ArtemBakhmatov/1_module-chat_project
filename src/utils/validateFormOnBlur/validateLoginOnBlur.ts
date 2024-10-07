@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
-const validateLoginOnBlur = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+const validateLoginOnBlur = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   const loginPattern = /^(?!\d+$)[A-Za-z\d_-]{3,20}$/;
 
   if (!loginPattern.test(inputValue)) {

@@ -6,7 +6,7 @@ import Handlebars from 'handlebars';
 import EventBus from './EventBus'; // Предполагается, что у вас есть этот модуль
 
 type Events = {
-  [key: string]: () => void;
+  [key: string]: (e: Event) => void;
 };
 
 type PropValue = unknown;
@@ -26,13 +26,11 @@ export default class Block {
 
   private _element: HTMLElement | null = null;
 
-  private _meta: unknown = null;
-
   private _id: string = nanoid(6);
 
   private _eventListeners: { eventName: string; handler: (event: Event) => void }[] = [];
 
-  private eventBus: EventBus<string>;
+  private eventBus: EventBus;
 
   protected props: Props;
 
@@ -63,7 +61,7 @@ export default class Block {
   private _removeEvents() {
     if (this._element) {
       this._eventListeners.forEach(({ eventName, handler }) => {
-        this._element.removeEventListener(eventName, handler);
+        this._element!.removeEventListener(eventName, handler);
       });
       this._eventListeners = [];
     }
@@ -112,6 +110,8 @@ export default class Block {
   }
 
   protected componentDidUpdate(oldProps: Props, newProps: Props): boolean {
+    console.log('Old Props:', oldProps);
+    console.log('New Props:', newProps);
     return true;
   }
 
@@ -155,7 +155,8 @@ export default class Block {
 
     Object.values(this.children).forEach((child) => {
       const stub = fragment.content.querySelector(`[data-id="${child._id}"]`);
-      if (stub) {
+      const childContent = child.getContent();
+      if (stub && childContent) {
         stub.replaceWith(child.getContent());
       }
     });
@@ -173,6 +174,10 @@ export default class Block {
   }
 
   public getContent() {
+    if (!this._element) {
+      throw new Error('Element is not initialized');
+    }
+
     if (this._element?.parentNode?.nodeType === Node.DOCUMENT_FRAGMENT_NODE) {
       setTimeout(() => {
         if (this._element?.parentNode?.nodeType !== Node.DOCUMENT_FRAGMENT_NODE) {
@@ -189,19 +194,18 @@ export default class Block {
   }
 
   private _makePropsProxy(props: Props): Props {
-    const self = this;
     return new Proxy(props, {
-      get(target, prop) {
-        const value = target[prop];
+      get: (target: Props, prop: string | symbol) => {
+        const value = target[prop as keyof Props];
         return typeof value === 'function' ? value.bind(target) : value;
       },
-      set(target, prop, value) {
+      set: (target: Props, prop: string | symbol, value: unknown) => {
         const oldTarget = { ...target };
-        target[prop] = value;
-        self.eventBus.emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
+        target[prop as keyof Props] = value;
+        this.eventBus.emit(Block.EVENTS.FLOW_CDU, oldTarget, target);
         return true;
       },
-      deleteProperty() {
+      deleteProperty: () => {
         throw new Error('Нет доступа');
       },
     });

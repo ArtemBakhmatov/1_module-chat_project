@@ -8,8 +8,12 @@ import { InputWrapper } from '../input';
 import { TitleElement } from '../title';
 import { Link } from '../link';
 
+interface FormProfileProps {
+  [key: string]: unknown;
+}
+
 export default class FormProfile extends Block {
-  constructor(props) {
+  constructor(props: FormProfileProps) {
     super({
       ...props,
       events: {

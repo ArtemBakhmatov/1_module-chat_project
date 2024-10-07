@@ -2,8 +2,12 @@
 import Block from '../../core/Block';
 // import { TitleElement } from '../title';
 
+interface FormWrapperProps {
+  [key: string]: unknown;
+}
+
 export default class FormWrapper extends Block {
-  constructor(props) {
+  constructor(props: FormWrapperProps) {
     super({
       ...props,
     });

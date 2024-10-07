@@ -1,5 +1,10 @@
 /* eslint-disable linebreak-style */
-const validatePhoneOnSubmit = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+
+const validatePhoneOnSubmit = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
 
   if (inputValue === undefined) {

@@ -6,8 +6,12 @@ import Block from '../../core/Block';
 
 import { ProfileAvatar, FormProfileChange } from '..';
 
+interface ProfileChangeWrapperProps {
+  [key: string]: unknown;
+}
+
 export default class ProfileChangeWrapper extends Block {
-  constructor(props) {
+  constructor(props: ProfileChangeWrapperProps) {
     super({
       ...props,
       ProfileAvatar: new ProfileAvatar({}),

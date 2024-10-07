@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
-const validateFirstNameOnBlur = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+const validateFirstNameOnBlur = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   if (inputValue.length === 0) {
     classComponentChildren.setProps({
       error: true,

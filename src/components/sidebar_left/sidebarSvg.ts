@@ -3,8 +3,12 @@
 /* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
+interface SidebarSvgProps {
+  [key: string]: unknown;
+}
+
 export default class SidebarSvg extends Block {
-  constructor(props) {
+  constructor(props: SidebarSvgProps) {
     super({
       ...props,
     });

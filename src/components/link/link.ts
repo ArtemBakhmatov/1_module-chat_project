@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
+interface LinkProps {
+  [key: string]: unknown;
+}
+
 class Link extends Block {
-  constructor(props) {
+  constructor(props: LinkProps) {
     super({
       ...props,
     });

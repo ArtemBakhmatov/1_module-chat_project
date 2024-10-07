@@ -6,8 +6,12 @@ import Block from '../../core/Block';
 import { SidebarLeft } from '../../components';
 import { ProfileWrapper } from '../../components/profileWrapper';
 
+interface ProfileProps {
+  [key: string]: unknown;
+}
+
 export default class Profile extends Block {
-  constructor(props) {
+  constructor(props: ProfileProps) {
     super({
       ...props,
       SidebarLeft: new SidebarLeft({}),

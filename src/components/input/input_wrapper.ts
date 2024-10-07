@@ -3,8 +3,12 @@ import Block from '../../core/Block';
 import Input from './input';
 import ErrorText from './error_text';
 
+interface InputWrapperProps {
+  [key: string]: unknown;
+}
+
 export default class InputWrapper extends Block {
-  constructor(props) {
+  constructor(props: InputWrapperProps) {
     super({
       ...props,
       Input: new Input({
@@ -22,7 +26,7 @@ export default class InputWrapper extends Block {
     });
   }
 
-  componentDidUpdate(oldProps, newProps): boolean {
+  componentDidUpdate(oldProps: InputWrapperProps, newProps: InputWrapperProps): boolean {
     if (oldProps === newProps) {
       return false;
     }

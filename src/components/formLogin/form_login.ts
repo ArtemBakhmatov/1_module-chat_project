@@ -5,15 +5,20 @@ import { InputWrapper } from '../input';
 import TitleElement from '../title/title';
 import { Button } from '../button';
 
+interface FormLoginProps {
+  login?: string;
+  password?: string;
+}
+
 export default class FormLogin extends Block {
-  constructor(props) {
+  constructor(props: FormLoginProps) {
     super({
       ...props,
       events: {
-        submit: (e) => {
+        submit: (e: Event) => {
           console.log('hello!');
           e.preventDefault();
-          this.onLogin(e);
+          this.onLogin();
         },
       },
       InputLogin: new InputWrapper({
@@ -21,14 +26,14 @@ export default class FormLogin extends Block {
         label: 'Логин',
         name: 'login',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeLogin(e),
+        onBlur: (e: FocusEvent) => this.onChangeLogin(e),
       }),
       InputPassword: new InputWrapper({
         type: 'password',
         label: 'Пароль',
         name: 'password',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangePassword(e),
+        onBlur: (e: FocusEvent) => this.onChangePassword(e),
       }),
       TitleLogin: new TitleElement({
         label: 'Вход',
@@ -45,8 +50,8 @@ export default class FormLogin extends Block {
     });
   }
 
-  onChangeLogin(e) {
-    const inputValue = e.target.value;
+  onChangeLogin(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue === 'error') {
       this.children.InputLogin.setProps({ error: true, errorText: 'Неверный логин' });
       return;
@@ -75,8 +80,8 @@ export default class FormLogin extends Block {
     this.setProps({ login: inputValue });
   }
 
-  onChangePassword(e) {
-    const inputValue = e.target.value;
+  onChangePassword(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     if (inputValue === '12345') {
       this.children.InputPassword.setProps({ error: true, errorText: 'неверный пароль' });
       return;
@@ -105,7 +110,7 @@ export default class FormLogin extends Block {
     this.setProps({ password: inputValue });
   }
 
-  onLogin(e) {
+  onLogin() {
     const loginSubmit = this.props.login;
     console.log({
       login: loginSubmit,

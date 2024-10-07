@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
-const validateDisplayNameOnBlur = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+const validateDisplayNameOnBlur = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   if (inputValue.length === 0) {
     classComponentChildren.setProps({
       error: true,

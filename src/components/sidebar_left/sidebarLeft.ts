@@ -6,8 +6,12 @@ import Block from '../../core/Block';
 
 import SidebarLink from './sidebarLink';
 
+interface SidebarLeftProps {
+  [key: string]: unknown;
+}
+
 export default class SidebarLeft extends Block {
-  constructor(props) {
+  constructor(props: SidebarLeftProps) {
     super({
       ...props,
       SidebarLink: new SidebarLink({}),

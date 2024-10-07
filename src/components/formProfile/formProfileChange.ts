@@ -23,15 +23,21 @@ import {
   validatePhoneOnSubmit,
 } from '../../utils';
 
+interface FormProfileChangeProps {
+  [key: string]: unknown;
+  // login?: string;
+  // password?: string;
+}
+
 export default class FormProfileChange extends Block {
-  constructor(props) {
+  constructor(props: FormProfileChangeProps) {
     super({
       ...props,
       events: {
         submit: (e) => {
           e.preventDefault();
           console.log('Профиль');
-          this.onSubmit(e);
+          this.onSubmit();
         },
       },
       ButtonSave: new Button({
@@ -44,7 +50,7 @@ export default class FormProfileChange extends Block {
         placeholder: 'pochta@yandex.ru',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeEmail(e),
+        onBlur: (e: FocusEvent) => this.onChangeEmail(e),
       }),
       InputLogin: new InputWrapper({
         type: 'text',
@@ -52,7 +58,7 @@ export default class FormProfileChange extends Block {
         placeholder: 'ivanivanov',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeLogin(e),
+        onBlur: (e: FocusEvent) => this.onChangeLogin(e),
       }),
       InputFirstName: new InputWrapper({
         type: 'text',
@@ -60,7 +66,7 @@ export default class FormProfileChange extends Block {
         placeholder: 'Иван',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeFirstName(e),
+        onBlur: (e: FocusEvent) => this.onChangeFirstName(e),
       }),
       InputSecondName: new InputWrapper({
         type: 'text',
@@ -68,7 +74,7 @@ export default class FormProfileChange extends Block {
         placeholder: 'Иванов',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeSecondName(e),
+        onBlur: (e: FocusEvent) => this.onChangeSecondName(e),
       }),
       InputDisplayName: new InputWrapper({
         type: 'text',
@@ -76,7 +82,7 @@ export default class FormProfileChange extends Block {
         placeholder: 'Иван',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangeDisplayName(e),
+        onBlur: (e: FocusEvent) => this.onChangeDisplayName(e),
       }),
       InputPhone: new InputWrapper({
         type: 'tel',
@@ -84,48 +90,48 @@ export default class FormProfileChange extends Block {
         placeholder: '+7(909)-967-30-30',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e) => this.onChangePhone(e),
+        onBlur: (e: FocusEvent) => this.onChangePhone(e),
       }),
     });
   }
 
-  onChangeEmail(e) {
-    const inputValueEmail = e.target.value;
+  onChangeEmail(e: FocusEvent) {
+    const inputValueEmail = (e.target as HTMLInputElement).value;
     validateEmailOnBlur(inputValueEmail, this.children.InputEmail);
     this.setProps({ email: inputValueEmail });
   }
 
-  onChangeLogin(e) {
-    const inputValueLogin = e.target.value;
+  onChangeLogin(e: FocusEvent) {
+    const inputValueLogin = (e.target as HTMLInputElement).value;
     validateLoginOnBlur(inputValueLogin, this.children.InputLogin);
     this.setProps({ login: inputValueLogin });
   }
 
-  onChangeFirstName(e) {
-    const inputValueName = e.target.value;
+  onChangeFirstName(e: FocusEvent) {
+    const inputValueName = (e.target as HTMLInputElement).value;
     validateFirstNameOnBlur(inputValueName, this.children.InputFirstName);
     this.setProps({ first_name: inputValueName });
   }
 
-  onChangeSecondName(e) {
-    const inputValueName = e.target.value;
+  onChangeSecondName(e: FocusEvent) {
+    const inputValueName = (e.target as HTMLInputElement).value;
     validateSecondNameOnBlur(inputValueName, this.children.InputSecondName);
     this.setProps({ second_name: inputValueName });
   }
 
-  onChangeDisplayName(e) {
-    const inputValueName = e.target.value;
+  onChangeDisplayName(e: FocusEvent) {
+    const inputValueName = (e.target as HTMLInputElement).value;
     validateDisplayNameOnBlur(inputValueName, this.children.InputDisplayName);
     this.setProps({ display_name: inputValueName });
   }
 
-  onChangePhone(e) {
-    const inputValue = e.target.value;
+  onChangePhone(e: FocusEvent) {
+    const inputValue = (e.target as HTMLInputElement).value;
     validatePhoneOnBlur(inputValue, this.children.InputPhone);
     this.setProps({ phone: inputValue });
   }
 
-  onSubmit(e) {
+  onSubmit() {
     const emailSubmit = this.props.email;
     const loginSubmit = this.props.login;
     const firstNameSubmit = this.props.first_name;
@@ -133,12 +139,12 @@ export default class FormProfileChange extends Block {
     const displayNameSubmit = this.props.display_name;
     const phoneSubmit = this.props.phone;
 
-    validateEmailOnSubmit(emailSubmit, this.children.InputEmail);
-    validateLoginOnSubmit(loginSubmit, this.children.InputLogin);
-    validateFirstNameOnSubmit(firstNameSubmit, this.children.InputFirstName);
-    validateSecondNameOnSubmit(secondNameSubmit, this.children.InputSecondName);
-    validateDisplayNameOnSubmit(displayNameSubmit, this.children.InputDisplayName);
-    validatePhoneOnSubmit(phoneSubmit, this.children.InputPhone);
+    validateEmailOnSubmit(emailSubmit as string, this.children.InputEmail);
+    validateLoginOnSubmit(loginSubmit as string, this.children.InputLogin);
+    validateFirstNameOnSubmit(firstNameSubmit as string, this.children.InputFirstName);
+    validateSecondNameOnSubmit(secondNameSubmit as string, this.children.InputSecondName);
+    validateDisplayNameOnSubmit(displayNameSubmit as string, this.children.InputDisplayName);
+    validatePhoneOnSubmit(phoneSubmit as string, this.children.InputPhone);
 
     console.log({
       email: emailSubmit,

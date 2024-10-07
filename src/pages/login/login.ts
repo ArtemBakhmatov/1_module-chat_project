@@ -3,8 +3,12 @@ import Block from '../../core/Block';
 import { FormWrapper } from '../../components/formWrapper';
 import { FormLogin } from '../../components/formLogin';
 
+interface LoginPageProps {
+  [key: string]: unknown;
+}
+
 export default class LoginPage extends Block {
-  constructor(props) {
+  constructor(props: LoginPageProps) {
     super({
       ...props,
       FormLogin: new FormWrapper({

@@ -4,8 +4,12 @@ import Block from '../../core/Block';
 
 import { ProfileAvatar, FormProfile } from '..';
 
+interface ProfileWrapperProps {
+  [key: string]: unknown;
+}
+
 export default class ProfileWrapper extends Block {
-  constructor(props) {
+  constructor(props: ProfileWrapperProps) {
     super({
       ...props,
       ProfileAvatar: new ProfileAvatar({}),

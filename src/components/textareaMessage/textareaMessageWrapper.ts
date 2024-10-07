@@ -3,8 +3,12 @@ import Block from '../../core/Block';
 import TextareaMessage from './textareaMessage';
 import ErrorText from './textError';
 
+interface InputWrapperProps {
+  [key: string]: unknown;
+}
+
 export default class InputWrapper extends Block {
-  constructor(props) {
+  constructor(props: InputWrapperProps) {
     super({
       ...props,
       TextareaMessage: new TextareaMessage({
@@ -21,7 +25,7 @@ export default class InputWrapper extends Block {
     });
   }
 
-  componentDidUpdate(oldProps, newProps): boolean {
+  componentDidUpdate(oldProps: InputWrapperProps, newProps: InputWrapperProps): boolean {
     if (oldProps === newProps) {
       return false;
     }

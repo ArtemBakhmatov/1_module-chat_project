@@ -1,5 +1,10 @@
 /* eslint-disable linebreak-style */
-const validatePhoneOnBlur = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+} 
+
+const validatePhoneOnBlur = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
 
   if (!phonePattern.test(inputValue)) {
@@ -10,8 +15,6 @@ const validatePhoneOnBlur = (inputValue, classComponentChildren) => {
     return;
   }
   classComponentChildren.setProps({ error: false, errorText: null });
-
-  this.setProps({ phone: inputValue });
 };
 
 export default validatePhoneOnBlur;

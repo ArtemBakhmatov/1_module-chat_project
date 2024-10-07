@@ -1,15 +1,15 @@
 /* eslint-disable linebreak-style */
 enum METHOD {
-    GET = 'GET',
-    POST = 'POST',
-    PUT = 'PUT',
-    PATCH = 'PATCH',
-    DELETE = 'DELETE'
+  GET = 'GET',
+  POST = 'POST',
+  PUT = 'PUT',
+  PATCH = 'PATCH',
+  DELETE = 'DELETE',
 }
 
 type Options = {
-method: METHOD;
-data?: any;
+  method: METHOD;
+  data?: any;
 };
 
 type OptionsWithoutMethod = Omit<Options, 'method'>;

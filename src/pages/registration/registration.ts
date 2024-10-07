@@ -3,8 +3,12 @@ import { FormRegistration } from '../../components/formRegistration';
 import { FormWrapper } from '../../components/formWrapper';
 import Block from '../../core/Block';
 
-export default class registrationPage extends Block {
-  constructor(props) {
+interface RegistrationPageProps {
+  [key: string]: unknown;
+}
+
+export default class RegistrationPage extends Block {
+  constructor(props: RegistrationPageProps) {
     super({
       ...props,
       FormRegistration: new FormWrapper({

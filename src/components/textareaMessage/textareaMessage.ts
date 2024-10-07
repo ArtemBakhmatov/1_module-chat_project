@@ -1,8 +1,12 @@
 /* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
+interface TextareaMessageProps {
+  [key: string]: unknown;
+}
+
 export default class TextareaMessage extends Block {
-  constructor(props) {
+  constructor(props: TextareaMessageProps) {
     super({
       ...props,
     });

@@ -5,10 +5,10 @@ import * as Pages from './pages';
 
 import './styles/style.scss';
 
-declare global {
-  export type Keys<T extends Record<string, unknown>> = keyof T;
-  export type Values<T extends Record<string, unknown>> = T[Keys<T>];
-}
+// declare global {
+//   export type Keys<T extends Record<string, unknown>> = keyof T;
+//   export type Values<T extends Record<string, unknown>> = T[Keys<T>];
+// }
 
 const pages = {
   nav: [Pages.NavigatePage],
@@ -22,19 +22,19 @@ const pages = {
 };
 
 Object.entries(Components).forEach(([name, component]) => {
+  // @ts-expect-error: Игнорируем ошибку типов, так как компоненты корректно регистрируются в Handlebars
   Handlebars.registerPartial(name, component);
 });
 
 function navigate(page: string) {
-  // @ts-ignore
+  // @ts-expect-error: TypeScript doesn't know the structure of 'pages' at runtime
   const [source, context] = pages[page];
   const container = document.getElementById('app')!;
 
   if (source instanceof Object) {
-    // eslint-disable-next-line no-shadow, new-cap
-    const page = new source(context);
+    const pageInstance = new source(context);
     container.innerHTML = '';
-    container.append(page.getContent());
+    container.append(pageInstance.getContent());
     // page.dispatchComponentDidMount();
     return;
   }
@@ -44,8 +44,8 @@ function navigate(page: string) {
 document.addEventListener('DOMContentLoaded', () => navigate('nav'));
 
 document.addEventListener('click', (e) => {
-  // @ts-ignore
-  const page = e.target.getAttribute('page');
+  const target = e.target as HTMLElement;
+  const page = target.getAttribute('page');
   if (page) {
     navigate(page);
 

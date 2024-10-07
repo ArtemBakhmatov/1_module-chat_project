@@ -5,8 +5,12 @@ import Block from '../../core/Block';
 
 import { SidebarLeft, ProfileChangeWrapper } from '../../components';
 
+interface ProfileChangeProps {
+  [key: string]: unknown;
+}
+
 export default class ProfileChange extends Block {
-  constructor(props) {
+  constructor(props: ProfileChangeProps) {
     super({
       ...props,
       SidebarLeft: new SidebarLeft({}),

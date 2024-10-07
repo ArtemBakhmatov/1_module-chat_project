@@ -1,5 +1,9 @@
 /* eslint-disable linebreak-style */
-const validateEmailOnBlur = (inputValue, classComponentChildren) => {
+
+interface ClassComponentChildrenProps {
+  setProps: (props: { error: boolean; errorText: string | null }) => void;
+}
+const validateEmailOnBlur = (inputValue: string, classComponentChildren: ClassComponentChildrenProps) => {
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
   if (!emailPattern.test(inputValue)) {

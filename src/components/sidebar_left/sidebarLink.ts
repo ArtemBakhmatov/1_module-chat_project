@@ -5,8 +5,12 @@ import Block from '../../core/Block';
 
 import SidebarSvg from './sidebarSvg';
 
+interface SidebarLinkProps {
+  [key: string]: unknown;
+}
+
 export default class SidebarLink extends Block {
-  constructor(props) {
+  constructor(props: SidebarLinkProps) {
     super({
       ...props,
       SidebarSvg: new SidebarSvg({}),
