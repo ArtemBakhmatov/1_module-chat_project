@@ -1,0 +1,23 @@
+.linkButton {
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--blue);
+    border-bottom: 1px solid #EAEAEA;
+    padding: 10px 0;
+    text-decoration: none;
+    &:hover {
+        text-decoration: underline;
+    }
+    &:last-child {
+        border-bottom: none;
+    }
+    &__red {
+        font-size: 13px;
+        font-weight: 500;
+        border-bottom: 1px solid #EAEAEA;
+        padding: 10px 0;
+        text-decoration: none;
+        color: var(--red);
+    }
+}
+
