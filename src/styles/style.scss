@@ -24,10 +24,15 @@
 }
 
 .error-message {
-    color: red;
-    margin-top: 10px;
-  }
-
+  color: red;
+  margin-top: 10px;
+}
+  
+.avatar-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
 // Стили модального окна пока суда добавил, так как тут работают, в компоненте нет
 .avatarModal {
   position: fixed;
