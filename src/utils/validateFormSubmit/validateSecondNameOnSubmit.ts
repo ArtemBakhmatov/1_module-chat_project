@@ -42,3 +42,4 @@ const validateSecondNameOnSubmit = (inputValue: string, classComponentChildren: 
 };
 
 export default validateSecondNameOnSubmit;
+

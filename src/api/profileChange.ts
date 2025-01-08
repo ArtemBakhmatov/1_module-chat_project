@@ -39,3 +39,5 @@ export default class ProfileChangeApi {
 //     return profileChangeApi.put<UserDTO>('/profile', { data });
 //   }
 // }
+
+

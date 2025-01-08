@@ -28,3 +28,4 @@ const validateLoginOnSubmit = (inputValue: string, classComponentChildren: Class
 };
 
 export default validateLoginOnSubmit;
+

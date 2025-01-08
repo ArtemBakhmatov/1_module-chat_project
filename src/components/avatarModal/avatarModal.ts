@@ -115,3 +115,4 @@ export default AvatarModal;
 // <p class="avatarModal__title">Загрузите файл</p>
 // ${successMessage || isFileSelected ? '' : '<input type="file" name="avatar" accept="image/*" />'}
 // ${ successMessage ? '' : '<p class="avatarModal__title"></p>'}
+

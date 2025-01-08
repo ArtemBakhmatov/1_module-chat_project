@@ -32,3 +32,4 @@ export default class Error500Page extends Block {
     );
   }
 }
+

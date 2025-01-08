@@ -21,3 +21,4 @@ export const logout = async () => {
     window.store.set({ isLoading: false });
   }
 };
+

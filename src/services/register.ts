@@ -20,3 +20,4 @@ export const register = async (model: CreateUser) => {
     window.store.set({ isLoading: false });
   }
 };
+

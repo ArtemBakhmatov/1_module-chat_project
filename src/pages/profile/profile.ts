@@ -93,3 +93,5 @@ const mapStateToProps = ({ isLoading, profileError, profile }: State): ProfilePa
 export default connect(mapStateToProps)(ProfilePage);
 
 
+
+

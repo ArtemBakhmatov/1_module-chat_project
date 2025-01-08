@@ -46,3 +46,4 @@ export default class Modal extends Block {
     `;
   }
 }
+

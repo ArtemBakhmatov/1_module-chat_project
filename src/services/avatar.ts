@@ -146,3 +146,4 @@ export const changeAvatar = async (formData: FormData) => {
     console.error('Ошибка при изменении аватара:', error);
   }
 };
+

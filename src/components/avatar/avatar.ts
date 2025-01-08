@@ -48,3 +48,4 @@ export default class Avatar extends Block {
     return '<img src="{{ src }}" alt="Avatar" class="profileAvatar__img" name="avatar" />';
   }
 }
+

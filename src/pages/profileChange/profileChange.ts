@@ -91,3 +91,5 @@ const mapStateToProps = ({ isLoading, profileError, profile }: State): ProfileCh
 
 // @ts-expect-error: Игнорируем ошибку connect(mapStateToProps)(EditProfilePage)
 export default connect(mapStateToProps)(ProfileChangePage); 
+
+

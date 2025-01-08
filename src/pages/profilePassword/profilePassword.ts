@@ -104,3 +104,5 @@ const mapStateToProps = (state: {
 // @ts-expect-error: Игнорируем ошибку connect(mapStateToProps)(ChangePasswordPage)
 export default connect(mapStateToProps)(ProfilePasswordPage);
 
+
+

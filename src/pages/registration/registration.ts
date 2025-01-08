@@ -57,3 +57,5 @@ const mapStateToPropsShort = ({ isLoading, registrationError }: State): Registra
 
 // @ts-expect-error: Игнорируем ошибку connect(mapStateToPropsShort)(RegistrationPage)
 export default connect(mapStateToPropsShort)(RegistrationPage);
+
+

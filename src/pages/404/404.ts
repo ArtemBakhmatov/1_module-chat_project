@@ -32,3 +32,5 @@ export default class Error404Page extends Block {
     );
   }
 }
+
+

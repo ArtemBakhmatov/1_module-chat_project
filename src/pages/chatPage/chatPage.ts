@@ -485,23 +485,3 @@ const mapStateToProps = (state: any) => ({
 
 export default connect(mapStateToProps)(ChatPage);
 
-
-/* <div class="chat-page">
-
-        <button class="create-chat-button">Создать чат</button>
-        <div class="modal-chat hidden">
-          <div class="modal-content">
-            <span class="close-button">&times;</span>
-            <h2>Создать новый чат</h2>
-            <input type="text" id="chat-title" placeholder="Название чата" />
-            <button id="create-chat">Создать</button>
-          </div>
-        </div>
-
-        <div class="chat-list">
-          {{{ChatList}}}
-        </div>
-        <div class="chat-window">
-          {{{ChatWindow}}}
-        </div>
-      </div> */

@@ -27,3 +27,4 @@ const validateEmailOnSubmit = (inputValue: string, classComponentChildren: Class
 };
 
 export default validateEmailOnSubmit;
+
