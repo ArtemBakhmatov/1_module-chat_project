@@ -7,6 +7,7 @@ import SidebarSvg from './sidebarSvg';
 
 interface SidebarLinkProps {
   [key: string]: unknown;
+  onClick?: () => void; // Modify this type according to the actual type of onClick
 }
 
 export default class SidebarLink extends Block {
@@ -14,15 +15,18 @@ export default class SidebarLink extends Block {
     super({
       ...props,
       SidebarSvg: new SidebarSvg({}),
+      events: {
+        click: props.onClick || (() => {}),
+      },
     });
   }
 
   protected render(): string {
     return (
       `
-        <a href="#" class="sidebarLeft__linkCircleBlock" page="profile">
+        <button class="sidebarLeft__linkCircleBlock">
             {{{ SidebarSvg }}}
-        </a>
+        </button>
       `
     );
   }

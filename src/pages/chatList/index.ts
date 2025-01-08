@@ -1,5 +1,6 @@
 import './chatList.scss';
 
 import ChatList from './chatList';
+import { withRouter } from '../../utils';
 
-export default ChatList;
+export default withRouter(ChatList);

@@ -1,7 +1,6 @@
 import './registration.scss';
 
-// export { default as RegistrationPage } from './registration.hbs?raw';
-
+import { withRouter } from '../../utils';
 import RegistrationPage from './registration';
 
-export default RegistrationPage;
+export default withRouter(RegistrationPage);

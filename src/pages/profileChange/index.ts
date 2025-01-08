@@ -1,5 +1,6 @@
 import './profileChange.scss';
 
+import { withRouter } from '../../utils';
 import ProfileChangePage from './profileChange';
 
-export default ProfileChangePage;
+export default withRouter(ProfileChangePage);

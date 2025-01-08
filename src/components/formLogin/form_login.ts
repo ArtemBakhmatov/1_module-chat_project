@@ -5,6 +5,9 @@ import { InputWrapper } from '../input';
 import TitleElement from '../title/title';
 import { Button } from '../button';
 
+import { fillLogin } from '../../services/setAutorizationFields';
+import { login } from '../../services/auth';
+
 interface FormLoginProps {
   login?: string;
   password?: string;
@@ -16,13 +19,16 @@ export default class FormLogin extends Block {
       ...props,
       events: {
         submit: (e: Event) => {
-          console.log('hello!');
           e.preventDefault();
+          console.log('Событие отправки формы перехвачено');
           this.onLogin();
+          
+          // eslint-disable-next-line @typescript-eslint/no-floating-promises
+          // login({ login: this.props.loginField, password: this.props.password });
         },
       },
       InputLogin: new InputWrapper({
-        type: 'type',
+        type: 'text',
         label: 'Логин',
         name: 'login',
         classInputError: 'input__error',
@@ -46,6 +52,7 @@ export default class FormLogin extends Block {
       ButtonNotAccount: new Button({
         classType: 'button__secondary',
         label: 'Нет аккаунта?',
+        onClick: () => this.onClickRegistration(),
       }),
     });
   }
@@ -78,6 +85,8 @@ export default class FormLogin extends Block {
 
 
     this.setProps({ login: inputValue });
+
+    fillLogin(inputValue);
   }
 
   onChangePassword(e: FocusEvent) {
@@ -111,23 +120,60 @@ export default class FormLogin extends Block {
   }
 
   onLogin() {
-    const loginSubmit = this.props.login;
-    console.log({
-      login: loginSubmit,
-      password: this.props.password,
-    });
-    if (loginSubmit === undefined) {
-      console.log('поле пустое');
-    }
-    console.log(loginSubmit);
-    if (loginSubmit === undefined) {
+    // const loginSubmit = this.props.login;
+    // console.log({
+    //   login: loginSubmit,
+    //   password: this.props.password,
+    // });
+    // if (loginSubmit === undefined) {
+    //   console.log('поле пустое');
+    // }
+    // console.log(loginSubmit);
+    // if (loginSubmit === undefined) {
+    //   this.children.InputLogin.setProps({
+    //     error: true,
+    //     errorText: 'поле пустое',
+    //   });
+    //   return;
+    // }
+    // this.children.InputLogin.setProps({ error: false, errorText: null });
+
+    const userLogin = this.props.login;
+    const userPassword = this.props.password;
+
+    // Проверка поля логина
+    if (!userLogin) {
       this.children.InputLogin.setProps({
         error: true,
-        errorText: 'поле пустое',
+        errorText: 'Поле логина не должно быть пустым',
       });
       return;
     }
-    this.children.InputLogin.setProps({ error: false, errorText: null });
+
+    // Проверка поля пароля
+    if (!userPassword) {
+      this.children.InputPassword.setProps({
+        error: true,
+        errorText: 'Поле пароля не должно быть пустым',
+      });
+      return;
+    }
+
+    // Если оба поля валидны, отправляем запрос
+    // @ts-expect-error: игнорируем ошибку
+    login({ login: userLogin, password: userPassword })
+      .catch(error => {
+        console.error('Ошибка при авторизации', error);
+      // Установите ошибку в глобальное состояние или отобразите сообщение об ошибке
+      // window.store.set({ loginError: 'Ошибка при авторизации' });
+      });
+
+    // login({ login: this.props.loginField, password: this.props.password });
+  }
+
+  onClickRegistration() {
+    // @ts-expect-error: Suppress error related to router.go possibly not existing
+    window.router.go('/sign-up');
   }
 
   render(): string {
@@ -146,3 +192,4 @@ export default class FormLogin extends Block {
     );
   }
 }
+

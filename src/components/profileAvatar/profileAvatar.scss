@@ -9,10 +9,14 @@
     align-items: center;
     justify-content: center;
     cursor: pointer;
+    overflow: hidden;
     &:hover {
         background-color: #777777;
         .profileAvatar__title {
             opacity: 1;
+        }
+        .profileAvatar__img {
+            filter: brightness(30%);
         }
         svg {
             path {
@@ -29,6 +33,9 @@
         text-align: center;
         color: var(--white);
         opacity: 0;
+    }
+    &__img {
+
     }
 }
 

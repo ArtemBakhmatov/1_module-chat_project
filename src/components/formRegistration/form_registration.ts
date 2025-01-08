@@ -5,6 +5,9 @@ import { TitleElement } from '../title';
 import { InputWrapper } from '../input';
 import { Button } from '../button';
 
+import { register } from '../../services/register';
+import { fillRegistrationField } from '../../services/setRegistrationFields';
+
 interface FormRegistrationProps {
   [key: string]: unknown;
 }
@@ -80,13 +83,15 @@ export default class FormRegistration extends Block {
       ButtonLogin: new Button({
         classType: 'button__secondary',
         label: 'Войти',
+        onClick: () => this.onClickLogin(),
       }),
     });
   }
 
   onChangeEmail(e: FocusEvent) {
     const inputValueEmail = (e.target as HTMLInputElement).value;
-    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    // const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    const emailPattern = /^\S+@\S+$/;
 
     if (!emailPattern.test(inputValueEmail)) {
       this.children.InputEmail.setProps({
@@ -99,6 +104,7 @@ export default class FormRegistration extends Block {
 
 
     this.setProps({ email: inputValueEmail });
+    fillRegistrationField('email', inputValueEmail); // Сохраняем значение в глобальное состояние
   }
 
   onChangeLogin(e: FocusEvent) {
@@ -117,6 +123,7 @@ export default class FormRegistration extends Block {
 
 
     this.setProps({ login: inputValueLogin });
+    fillRegistrationField('login', inputValueLogin);
   }
 
   onChangeFirstName(e: FocusEvent) {
@@ -150,6 +157,7 @@ export default class FormRegistration extends Block {
     this.children.InputFirstName.setProps({ error: false, errorText: null });
 
     this.setProps({ first_name: inputValueName });
+    fillRegistrationField('first_name', inputValueName);
   }
 
   onChangeSecondName(e: FocusEvent) {
@@ -183,6 +191,7 @@ export default class FormRegistration extends Block {
     this.children.InputSecondName.setProps({ error: false, errorText: null });
 
     this.setProps({ second_name: inputValueName });
+    fillRegistrationField('second_name', inputValueName);
   }
 
   onChangePasswordFirst(e: FocusEvent) {
@@ -213,11 +222,12 @@ export default class FormRegistration extends Block {
 
 
     this.setProps({ passwordFirst: inputValue });
+    fillRegistrationField('passwordFirst', inputValue);
   }
 
   onChangePasswordSecond(e: FocusEvent) {
     const inputValue = (e.target as HTMLInputElement).value;
-    if (inputValue !== this.props.password) {
+    if (inputValue !== this.props.passwordFirst) {
       this.children.InputPasswordSecond.setProps({
         error: true,
         errorText: 'Пароли не совпадают!',
@@ -226,12 +236,14 @@ export default class FormRegistration extends Block {
     }
     this.children.InputPasswordSecond.setProps({ error: false, errorText: null });
     this.setProps({ passwordSecond: inputValue });
+    fillRegistrationField('passwordSecond', inputValue);
   }
 
   onChangePhone(e: FocusEvent) {
     const inputValue = (e.target as HTMLInputElement).value;
-    const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
-
+    // const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
+    const phonePattern = /^((8|\+7)[- ]?)?(\d{3}[- ]?)?[\d- ]{7,10}$/;
+    
     if (!phonePattern.test(inputValue)) {
       this.children.InputPhone.setProps({
         error: true,
@@ -242,6 +254,7 @@ export default class FormRegistration extends Block {
     this.children.InputPhone.setProps({ error: false, errorText: null });
 
     this.setProps({ phone: inputValue });
+    fillRegistrationField('phone', inputValue);
   }
 
   onRegistration() {
@@ -317,14 +330,40 @@ export default class FormRegistration extends Block {
     }
     this.children.InputPasswordSecond.setProps({ error: false, errorText: null });
 
-    console.log({
-      email: emailSubmit,
-      login: loginSubmit,
+    // Логирование данных перед отправкой
+    console.log('Отправка данных на сервер:', {
       first_name: firstNameSubmit,
       second_name: secondNameSubmit,
+      login: loginSubmit,
+      email: emailSubmit,
+      password: passwordFirstSubmit,
       phone: phoneSubmit,
-      password: passwordSecondSubmit,
     });
+
+    // Вызов регистрации
+    
+    register({
+      // @ts-expect-error: Suppress error about possible null values
+      first_name: firstNameSubmit,
+      // @ts-expect-error: Suppress error about possible null values
+      second_name: secondNameSubmit,
+      // @ts-expect-error: Suppress error about possible null values
+      login: loginSubmit,
+      // @ts-expect-error: Suppress error about possible null values
+      email: emailSubmit,
+      // @ts-expect-error: Suppress error about possible null values
+      password: passwordFirstSubmit,
+      // @ts-expect-error: Suppress error about possible null values
+      phone: phoneSubmit,
+    })
+      .catch(error => {
+        console.error('Ошибка при регистрации', error);
+      });
+  }
+
+  onClickLogin() {
+    // @ts-expect-error: Suppress error related to router.go possibly not existing
+    window.router.go('/login');
   }
 
   render(): string {

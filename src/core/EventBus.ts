@@ -28,7 +28,8 @@ export default class EventBus {
 
   public emit(event: string, ...args: any[]): void {
     if (!this.listeners[event]) {
-      throw new Error(`No event: ${event}`);
+      return;
+      // throw new Error(`No event: ${event}`);
     }
 
     this.listeners[event].forEach(listener => {
@@ -36,3 +37,4 @@ export default class EventBus {
     });
   }
 }
+

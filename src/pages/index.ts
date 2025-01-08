@@ -6,5 +6,9 @@ export { default as ProfilePage } from './profile';
 export { default as ChatListPage } from './chatList';
 export { default as Error404Page } from './404';
 export { default as Error500Page } from './500';
+export { default as ProfilePasswordPage } from './profilePassword';
+
+export { default as ChatPage } from './chatPage';
+
 
 

@@ -82,5 +82,9 @@
             </div>
         </div>
     </div>
+    ${successMessage || isFileSelected ? '' : '<label class="avatarModal__file">
+              <input type="file" accept="image/*" required />
+              <span>Выбрать файл на компьютере</span>
+            </label>'}
 </main>
 

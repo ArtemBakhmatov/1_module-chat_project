@@ -7,21 +7,7 @@ import Block from '../../core/Block';
 import { Button } from '../button';
 import { InputWrapper } from '../input';
 
-import {
-  validateEmailOnBlur,
-  validateLoginOnBlur,
-  validateFirstNameOnBlur,
-  validateSecondNameOnBlur,
-  validateDisplayNameOnBlur,
-  validatePhoneOnBlur,
-
-  validateEmailOnSubmit,
-  validateLoginOnSubmit,
-  validateFirstNameOnSubmit,
-  validateSecondNameOnSubmit,
-  validateDisplayNameOnSubmit,
-  validatePhoneOnSubmit,
-} from '../../utils';
+import { UserDTO } from '../../api/type';
 
 interface FormProfileChangeProps {
   [key: string]: unknown;
@@ -29,7 +15,28 @@ interface FormProfileChangeProps {
   // password?: string;
 }
 
+interface FormProfileChangeProps {
+  profileData?: {
+    first_name?: string;
+    second_name?: string;
+    display_name?: string;
+    login?: string;
+    email?: string;
+    phone?: string;
+    // добавьте другие поля, если необходимо
+  };
+  onSubmit: (data: Partial<UserDTO>) => void;
+}
+
+interface FormProfileChangeState {
+  isValid: {
+    [key: string]: boolean;
+  };
+}
+
 export default class FormProfileChange extends Block {
+  private state: FormProfileChangeState;
+
   constructor(props: FormProfileChangeProps) {
     super({
       ...props,
@@ -37,123 +44,201 @@ export default class FormProfileChange extends Block {
         submit: (e) => {
           e.preventDefault();
           console.log('Профиль');
-          this.onSubmit();
+          // this.onSubmit();
         },
       },
       ButtonSave: new Button({
         classType: 'button__primary button__width',
         label: 'Сохранить',
+        onClick: () => this.onSubmit(),
       }),
       InputEmail: new InputWrapper({
         type: 'email',
         name: 'email',
-        placeholder: 'pochta@yandex.ru',
+        placeholder: 'Введите почту',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangeEmail(e),
+        value: props.profileData?.email || '',
+        onBlur: (e: FocusEvent) => this.onValidateEmail(e),
       }),
       InputLogin: new InputWrapper({
         type: 'text',
         name: 'login',
-        placeholder: 'ivanivanov',
+        placeholder: 'Введите логин',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangeLogin(e),
+        value: props.profileData?.login || '',
+        onBlur: (e: FocusEvent) => this.onValidateLogin(e),
       }),
       InputFirstName: new InputWrapper({
         type: 'text',
         name: 'first_name',
-        placeholder: 'Иван',
+        placeholder: 'Введите имя',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangeFirstName(e),
+        onBlur: (e: FocusEvent) => this.onValidateFirstName(e),
+        value: props.profileData?.first_name || '',
       }),
       InputSecondName: new InputWrapper({
         type: 'text',
         name: 'second_name',
-        placeholder: 'Иванов',
+        placeholder: 'Введите фамилию',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangeSecondName(e),
+        value: props.profileData?.second_name || '',
+        onBlur: (e: FocusEvent) => this.onValidateSecondName(e),
       }),
       InputDisplayName: new InputWrapper({
         type: 'text',
         name: 'display_name',
-        placeholder: 'Иван',
+        placeholder: 'Введите имя для чата',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangeDisplayName(e),
+        value: props.profileData?.display_name || '',
+        onBlur: (e: FocusEvent) => this.onValidateDisplayName(e),
       }),
       InputPhone: new InputWrapper({
         type: 'tel',
         name: 'phone',
-        placeholder: '+7(909)-967-30-30',
+        placeholder: 'Введите номер мобильного телефона',
         classInputProfile: 'input__profile',
         classInputError: 'input__error',
-        onBlur: (e: FocusEvent) => this.onChangePhone(e),
+        value: props.profileData?.phone || '',
+        onBlur: (e: FocusEvent) => this.onValidatePhone(e),
       }),
     });
+    this.state = {
+      isValid: {
+        first_name: true,
+        second_name: true,
+        display_name: true,
+        login: true,
+        email: true,
+        phone: true,
+      },
+    };
   }
 
-  onChangeEmail(e: FocusEvent) {
-    const inputValueEmail = (e.target as HTMLInputElement).value;
-    validateEmailOnBlur(inputValueEmail, this.children.InputEmail);
-    this.setProps({ email: inputValueEmail });
+  onValidateEmail(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+    const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(inputElement.value)) {
+      alert('Некорректный формат email'); // Простая валидация, можно заменить на вывод ошибки в интерфейсе
+      this.state.isValid.email = false;
+    } else {
+      this.state.isValid.email = true;
+    }
   }
 
-  onChangeLogin(e: FocusEvent) {
-    const inputValueLogin = (e.target as HTMLInputElement).value;
-    validateLoginOnBlur(inputValueLogin, this.children.InputLogin);
-    this.setProps({ login: inputValueLogin });
+  onValidateLogin(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+    const loginPattern = /^(?!\d+$)[A-Za-z\d_-]{3,20}$/;
+    if (!loginPattern.test(inputElement.value)) {
+      alert('Логин должен быть от 3 до 20 символов, содержать только латиницу, цифры, дефис или нижнее подчёркивание, и не состоять только из цифр!',
+      ); 
+      this.state.isValid.login = false;
+    } else {
+      this.state.isValid.login = true;
+    }
   }
 
-  onChangeFirstName(e: FocusEvent) {
-    const inputValueName = (e.target as HTMLInputElement).value;
-    validateFirstNameOnBlur(inputValueName, this.children.InputFirstName);
-    this.setProps({ first_name: inputValueName });
+  onValidateFirstName(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+  
+    if (!/^[A-ZА-Я][a-zа-я-]*$/.test(inputElement.value) || inputElement.value.length === 0 || inputElement.value.length < 2) {
+      alert('Имя должно содержать только буквы и дефис, начинаться с заглавной буквы, не содержать пробелов или цифр и минимум 2 символа!');
+      this.state.isValid.first_name = false;
+    } else {
+      this.state.isValid.first_name = true;
+    }
+
   }
 
-  onChangeSecondName(e: FocusEvent) {
-    const inputValueName = (e.target as HTMLInputElement).value;
-    validateSecondNameOnBlur(inputValueName, this.children.InputSecondName);
-    this.setProps({ second_name: inputValueName });
+  onValidateSecondName(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+
+    if (!/^[A-ZА-Я][a-zа-я-]*$/.test(inputElement.value) || inputElement.value.length === 0 || inputElement.value.length < 2) {
+      alert('Имя должно содержать только буквы и дефис, начинаться с заглавной буквы, не содержать пробелов или цифр и минимум 2 символа!');
+      this.state.isValid.second_name = false;
+    } else {
+      this.state.isValid.second_name = true;
+    }
   }
 
-  onChangeDisplayName(e: FocusEvent) {
-    const inputValueName = (e.target as HTMLInputElement).value;
-    validateDisplayNameOnBlur(inputValueName, this.children.InputDisplayName);
-    this.setProps({ display_name: inputValueName });
+  onValidateDisplayName(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+    if (!/^[A-ZА-Я][a-zа-я-]*$/.test(inputElement.value) || inputElement.value.length === 0 || inputElement.value.length < 2) {
+      alert('Имя должно содержать только буквы и дефис, начинаться с заглавной буквы, не содержать пробелов или цифр и минимум 2 символа!');
+      this.state.isValid.display_name = false;
+    } else {
+      this.state.isValid.display_name = true;
+    }
   }
 
-  onChangePhone(e: FocusEvent) {
-    const inputValue = (e.target as HTMLInputElement).value;
-    validatePhoneOnBlur(inputValue, this.children.InputPhone);
-    this.setProps({ phone: inputValue });
+  onValidatePhone(e: FocusEvent) {
+    const inputElement = e.target as HTMLInputElement;
+    const phonePattern = /^((\+7|7|8)+([0-9]){10})$/;
+    if (!phonePattern.test(inputElement.value)) {
+      alert('Введите корректный номер телефона в формате +7XXXXXXXXXX!',
+      ); 
+      this.state.isValid.phone = false;
+    } else {
+      this.state.isValid.phone = true;
+    }
   }
 
   onSubmit() {
-    const emailSubmit = this.props.email;
-    const loginSubmit = this.props.login;
-    const firstNameSubmit = this.props.first_name;
-    const secondNameSubmit = this.props.second_name;
-    const displayNameSubmit = this.props.display_name;
-    const phoneSubmit = this.props.phone;
+    const formData: Partial<UserDTO> = {
+      first_name: this.children.InputFirstName.getContent().querySelector('input')?.value,
+      second_name: this.children.InputSecondName.getContent().querySelector('input')?.value,
+      display_name: this.children.InputDisplayName.getContent().querySelector('input')?.value,
+      login: this.children.InputLogin.getContent().querySelector('input')?.value,
+      email: this.children.InputEmail.getContent().querySelector('input')?.value,
+      phone: this.children.InputPhone.getContent().querySelector('input')?.value,
+    };
 
-    validateEmailOnSubmit(emailSubmit as string, this.children.InputEmail);
-    validateLoginOnSubmit(loginSubmit as string, this.children.InputLogin);
-    validateFirstNameOnSubmit(firstNameSubmit as string, this.children.InputFirstName);
-    validateSecondNameOnSubmit(secondNameSubmit as string, this.children.InputSecondName);
-    validateDisplayNameOnSubmit(displayNameSubmit as string, this.children.InputDisplayName);
-    validatePhoneOnSubmit(phoneSubmit as string, this.children.InputPhone);
+    if (!this.state.isValid.email) {
+      this.onValidateEmail({ target: this.children.InputEmail.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
 
-    console.log({
-      email: emailSubmit,
-      login: loginSubmit,
-      first_name: firstNameSubmit,
-      second_name: secondNameSubmit,
-      display_name: displayNameSubmit,
-      phone: phoneSubmit,
-    });
+    if (!this.state.isValid.first_name) {
+      this.onValidateFirstName({ target: this.children.InputFirstName.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
+    if (!this.state.isValid.second_name) {
+      this.onValidateSecondName({ target: this.children.InputSecondName.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
+    if (!this.state.isValid.display_name) {
+      this.onValidateDisplayName({ target: this.children.InputDisplayName.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
+    if (!this.state.isValid.login) {
+      this.onValidateLogin({ target: this.children.InputLogin.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
+    
+    if (!this.state.isValid.phone) {
+      this.onValidatePhone({ target: this.children.InputPhone.getContent().querySelector('input') } as FocusEvent);
+      return;
+    }
+    
+    // @ts-expect-error: игнорируем ошибку
+    this.props.onSubmit(formData);
+  }
+
+  componentDidUpdate(oldProps: FormProfileChangeProps, newProps: FormProfileChangeProps): boolean {
+    // console.log('FormProfile componentDidUpdate:', { oldProps, newProps });
+    if (oldProps.profileData !== newProps.profileData) {
+      this.children.InputFirstName.setProps({ value: newProps.profileData?.first_name || '' });
+      this.children.InputSecondName.setProps({ value: newProps.profileData?.second_name || '' });
+      this.children.InputEmail.setProps({ value: newProps.profileData?.email || '' });
+      this.children.InputLogin.setProps({ value: newProps.profileData?.login || '' });
+      this.children.InputPhone.setProps({ value: newProps.profileData?.phone || '' });
+      this.children.InputDisplayName.setProps({ value: newProps.profileData?.display_name || 'Безымянный' });
+    }
+    return true;
   }
 
   render(): string {

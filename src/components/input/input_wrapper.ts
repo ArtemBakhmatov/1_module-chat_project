@@ -5,6 +5,7 @@ import ErrorText from './error_text';
 
 interface InputWrapperProps {
   [key: string]: unknown;
+  value?: string;
 }
 
 export default class InputWrapper extends Block {
@@ -15,6 +16,7 @@ export default class InputWrapper extends Block {
         type: props.type,
         name: props.name,
         placeholder: props.placeholder,
+        value: props.value,
         events: {
           blur: props.onBlur || (() => {}),
         },
@@ -24,11 +26,16 @@ export default class InputWrapper extends Block {
         classInputError: props.classInputError,
       }),
     });
+    // console.log('InputWrapper props:', props); // Логируем props
   }
 
   componentDidUpdate(oldProps: InputWrapperProps, newProps: InputWrapperProps): boolean {
     if (oldProps === newProps) {
       return false;
+    }
+
+    if (oldProps.value !== newProps.value) {
+      this.children.Input.setProps({ value: newProps.value });
     }
 
     this.children.ErrorText.setProps(newProps);

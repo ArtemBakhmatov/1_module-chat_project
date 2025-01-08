@@ -9,6 +9,46 @@
         left: 50%;
         transform: translate(-50%, -50%);
         width: 510px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    &__avatarWrapper {
+        position: relative;
+        width: 130px;
+        height: 130px;
+        display: flex;
+        justify-content: center;
+        
+        &:hover {
+            .profile__avatarText {
+                opacity: 1;
+            }
+        }
+    }
+    &__avatarText {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 64px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 14px;
+        text-align: center;
+        color: var(--white);
+        opacity: 0;
+        pointer-events: none; 
+        transition: 0.1s all ease;
+    }
+    &__avatar {
+        cursor: pointer;
+        width: 130px;
+        height: 130px;
+        border-radius: 50%;
+        transition: 0.1s all ease;
+        &:hover {
+            filter: brightness(50%);
+        }
     }
 }
 

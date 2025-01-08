@@ -3,54 +3,42 @@ import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 
+import Router from './core/Router';
+import { Store } from './core/Store';
 import './styles/style.scss';
 
-// declare global {
-//   export type Keys<T extends Record<string, unknown>> = keyof T;
-//   export type Values<T extends Record<string, unknown>> = T[Keys<T>];
-// }
-
-const pages = {
-  nav: [Pages.NavigatePage],
-  login: [Pages.LoginPage],
-  registration: [Pages.RegistrationPage],
-  profile: [Pages.ProfilePage],
-  404: [Pages.Error404Page],
-  500: [Pages.Error500Page],
-  chatList: [Pages.ChatListPage],
-  profileChange: [Pages.ProfileChangePage],
-};
+import icon from './assets/icons/Union.png';
 
 Object.entries(Components).forEach(([name, component]) => {
   // @ts-expect-error: Игнорируем ошибку типов, так как компоненты корректно регистрируются в Handlebars
   Handlebars.registerPartial(name, component);
 });
 
-function navigate(page: string) {
-  // @ts-expect-error: TypeScript doesn't know the structure of 'pages' at runtime
-  const [source, context] = pages[page];
-  const container = document.getElementById('app')!;
+const router = new Router('#app');
+// @ts-expect-error: Игнорируем ошибку window.router 
+window.router = router;
 
-  if (source instanceof Object) {
-    const pageInstance = new source(context);
-    container.innerHTML = '';
-    container.append(pageInstance.getContent());
-    // page.dispatchComponentDidMount();
-    return;
-  }
-  container.innerHTML = Handlebars.compile(source)(context);
-}
-
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
-
-document.addEventListener('click', (e) => {
-  const target = e.target as HTMLElement;
-  const page = target.getAttribute('page');
-  if (page) {
-    navigate(page);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
+// @ts-expect-error: Игнорируем ошибку window.store 
+window.store = new Store({
+  isLoading: false,
+  loginError: null,
+  registrationError: null,
+  profile: null, // Добавьте это для хранения данных профиля
+  passwordError: null,
+  avatarUrl: icon,
+  chats: [],
+  selectedChat: null,
+  chatUsers: [], // Добавьте это для хранения пользователей чата
 });
+
+router.use('/', Pages.LoginPage)
+  .use('/sign-up', Pages.RegistrationPage)
+  //.use('/messenger', Pages.ChatListPage)
+  .use('/messenger', Pages.ChatPage)
+  .use('/login', Pages.LoginPage)
+  .use('*', Pages.Error404Page)
+  .use('/profile', Pages.ProfilePage)
+  .use('/settings', Pages.ProfileChangePage)
+  .use('/password', Pages.ProfilePasswordPage)
+  .start();
 

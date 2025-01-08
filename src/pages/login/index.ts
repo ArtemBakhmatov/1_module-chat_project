@@ -1,7 +1,6 @@
 import './login.scss';
 
-// export { default as LoginPage } from './login.hbs?raw';
-
+import { withRouter } from '../../utils';
 import LoginPage from './login';
 
-export default LoginPage;
+export default withRouter(LoginPage);

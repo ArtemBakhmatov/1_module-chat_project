@@ -1,5 +1,6 @@
 import './profile.scss';
 
+import { withRouter } from '../../utils';
 import Profile from './profile';
 
-export default Profile;
+export default withRouter(Profile);

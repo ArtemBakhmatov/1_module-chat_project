@@ -43,8 +43,7 @@ export default class ChatProfileItem extends Block {
                 <div class="{{ classNumberMessages }}">{{ numberMessages }}</div>
               </div>
             </div>
-          </a>
-            
+          </a> 
         </li>
       `
     );

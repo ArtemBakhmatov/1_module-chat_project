@@ -13,6 +13,9 @@ import validateSecondNameOnSubmit from './validateFormSubmit/validateSecondNameO
 import validateDisplayNameOnSubmit from './validateFormSubmit/validateDisplayNameOnSubmit';
 import validatePhoneOnSubmit from './validateFormSubmit/validatePhoneOnSubmit';
 
+import withRouter from './withRouter/withRouter';
+import { connect } from './connect/connect';
+
 export {
   validateEmailOnBlur,
   validateLoginOnBlur,
@@ -27,4 +30,7 @@ export {
   validateSecondNameOnSubmit,
   validateDisplayNameOnSubmit,
   validatePhoneOnSubmit,
+
+  withRouter,
+  connect,
 };

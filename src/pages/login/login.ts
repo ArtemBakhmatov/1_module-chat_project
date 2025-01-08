@@ -2,45 +2,58 @@
 import Block from '../../core/Block';
 import { FormWrapper } from '../../components/formWrapper';
 import { FormLogin } from '../../components/formLogin';
+import { Spinner } from '../../components';
+import { connect } from '../../utils';
 
+interface State {
+  isLoading: boolean;
+  loginError: string | null;
+}
 interface LoginPageProps {
+  isLoading: boolean;
+  loginError: string | null;
   [key: string]: unknown;
 }
 
-export default class LoginPage extends Block {
+class LoginPage extends Block {
   constructor(props: LoginPageProps) {
     super({
       ...props,
       FormLogin: new FormWrapper({
         formBody: new FormLogin({}),
       }),
+      Spinner: new Spinner({}),
     });
   }
 
   render():string {
     return (
       `
-      <main class="modal">
-        {{{ FormLogin }}}
-      </main>
-    `
+        <main class="modal">
+          {{#if isLoading}}
+            {{{ Spinner }}}
+          {{else}}
+
+            {{{ FormLogin }}}
+
+            <div class="error-message">
+              {{#if loginError}}
+                <p>{{ loginError }}</p>
+              {{/if}}   
+            </div>
+
+          {{/if}}
+        </main>
+      `
     );
   }
 }
 
-/* {{{ FormLogin }}} это обертка формы
-<form action="" class="login-form">
-          <div class="login-form__wrapper">
-            {{> Title label="Вход" }}
-            {{> Input type="text" label="Логин" name="login" }}
-            {{> Input type="password" label="Пароль" name="password" }}
-            <div class="login-form__buttons">
-              <button class="button button__primary">
-                Авторизоваться
-              </button>
-              <button class="button button__secondary">
-                Нет аккаунта?
-              </button>
-            </div>
-          </div>
-        </form> */
+const mapStateToPropsShort = ({ isLoading, loginError }: State): LoginPageProps => ({
+  isLoading,
+  loginError,
+});
+// @ts-expect-error: Игнорируем ошибку connect(mapStateToPropsShort)(LoginPage)
+export default connect(mapStateToPropsShort)(LoginPage);
+
+

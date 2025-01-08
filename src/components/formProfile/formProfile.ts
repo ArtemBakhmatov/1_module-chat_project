@@ -6,10 +6,20 @@ import Block from '../../core/Block';
 
 import { InputWrapper } from '../input';
 import { TitleElement } from '../title';
-import { Link } from '../link';
+import { Button } from '../button';
+
+import { logout } from '../../services/logout';
 
 interface FormProfileProps {
   [key: string]: unknown;
+  profileData?: {
+    first_name?: string;
+    second_name?: string;
+    email: string;
+    login: string;
+    phone: string;
+    display_name: string;
+  };
 }
 
 export default class FormProfile extends Block {
@@ -22,66 +32,100 @@ export default class FormProfile extends Block {
           console.log('Профиль');
         },
       },
-      linkButtonData: new Link({
-        classLinkButton: 'linkButton',
-        linkPage: 'profileChange',
-        label: 'Изменить данные',
+      ButtonDate: new Button({
+        classType: 'button__profileLink',
+        label: 'Изменить данные', 
+        onClick: () => this.onClickProfileChangePage(),
       }),
-      linkButtonPassword: new Link({
-        classLinkButton: 'linkButton',
-        linkPage: 'profileChange',
-        label: 'Изменить пароль',
+      ButtonPassword: new Button({
+        classType: 'button__profileLink',
+        label: 'Изменить пароль', 
+        onClick: () => this.onClickProfilePasswordPage(),
       }),
-      linkButtonExit: new Link({
-        classLinkButton: 'linkButton__red',
-        linkPage: 'login',
-        label: 'Выйти',
+      ButtonExit: new Button({
+        classType: 'button__profileLink button__profileLink_red',
+        label: 'Выйти', 
+        onClick: () => this.onLogout(),
       }),
       TitleName: new TitleElement({
-        label: 'Иван',
+        label: props.profileData?.first_name || '',
         classTitleName: 'title__name',
       }),
       InputEmail: new InputWrapper({
         type: 'email',
         name: 'email',
-        placeholder: 'pochta@yandex.ru',
         classInputProfile: 'input__profile input__profile_eventNone',
+        classInputError: 'input__error',
+        value: props.profileData?.email || '',
       }),
       InputLogin: new InputWrapper({
         type: 'text',
         name: 'login',
-        placeholder: 'ivanivanov',
         classInputProfile: 'input__profile input__profile_eventNone',
+        value: props.profileData?.login || '',
       }),
       InputFirstName: new InputWrapper({
         type: 'text',
         name: 'first_name',
-        placeholder: 'Иван',
         classInputProfile: 'input__profile input__profile_eventNone',
         classInputError: 'input__error',
+        value: props.profileData?.first_name || '', // Использование profileData
       }),
       InputSecondName: new InputWrapper({
         type: 'text',
         name: 'second_name',
-        placeholder: 'Иванов',
         classInputProfile: 'input__profile input__profile_eventNone',
+        value: props.profileData?.second_name || '', // Использование profileData
       }),
       InputDisplayName: new InputWrapper({
         type: 'text',
         name: 'display_name',
-        placeholder: 'Иван',
         classInputProfile: 'input__profile input__profile_eventNone',
+        value: props.profileData?.display_name || '', 
       }),
       InputPhone: new InputWrapper({
         type: 'tel',
         name: 'phone',
-        placeholder: '+7(909)-967-30-30',
+        // placeholder: '+7(909)-967-30-30',
         classInputProfile: 'input__profile input__profile_eventNone',
+        value: props.profileData?.phone || '', // Использование profileData
       }),
+    });
+    // console.log('FormProfile props:', props); // Отладка props
+  }
+
+  onLogout() {
+    logout().catch(error => {
+      console.error('Ошибка при выходе из системы', error);
     });
   }
 
+  onClickProfileChangePage() {
+    // @ts-expect-error: Suppress error related to router.go possibly not existing
+    window.router.go('/settings');
+  }
+
+  onClickProfilePasswordPage() {
+    // @ts-expect-error: Suppress error related to router.go possibly not existing
+    window.router.go('/password');
+  }
+
+  componentDidUpdate(oldProps: FormProfileProps, newProps: FormProfileProps): boolean {
+    // console.log('FormProfile componentDidUpdate:', { oldProps, newProps });
+    if (oldProps.profileData !== newProps.profileData) {
+      this.children.InputFirstName.setProps({ value: newProps.profileData?.first_name || '' });
+      this.children.InputSecondName.setProps({ value: newProps.profileData?.second_name || '' });
+      this.children.InputEmail.setProps({ value: newProps.profileData?.email || '' });
+      this.children.InputLogin.setProps({ value: newProps.profileData?.login || '' });
+      this.children.InputPhone.setProps({ value: newProps.profileData?.phone || '' });
+      this.children.InputDisplayName.setProps({ value: newProps.profileData?.display_name || 'Безымянный' });
+      this.children.TitleName.setProps({ label: newProps.profileData?.first_name || '' });
+    }
+    return true;
+  }
+
   render(): string {
+    // console.log('Rendering FormProfile with:', this.props.profileData); // Отладка данных
     return (
       `
         <form class="profile__userData">
@@ -127,16 +171,24 @@ export default class FormProfile extends Block {
             </div>
             {{{ InputPhone }}}
           </div>
-
         <div class="profile__changeUserData">
-            {{{ linkButtonData }}}
-            {{{ linkButtonPassword }}}
-            {{{ linkButtonExit }}}
+            {{{ ButtonDate }}}
+            {{{ ButtonPassword }}}
+            {{{ ButtonExit }}}
         </div>
       </form>
 `
     );
   }
 }
+
+
+// import { connect } from '../../utils';
+
+// const mapStateToProps = (state: { profile: FormProfileProps }): FormProfileProps => ({
+//   ...state.profile,
+// });
+// // @ts-expect-error: Игнорируем ошибку connect(mapStateToPropsShort)(Profile)
+// export default connect(mapStateToProps)(FormProfile);
 
 

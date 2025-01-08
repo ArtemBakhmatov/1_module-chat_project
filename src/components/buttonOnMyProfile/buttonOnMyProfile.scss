@@ -1,0 +1,22 @@
+.buttonOnMyProfile {
+    padding: 2px 0;
+    border: none;
+    display: flex;
+    align-items: center;
+    font-size: 12px;
+    line-height: 12px;
+    font-weight: 500;
+    color: var(--gray);
+    background-color: rgba($color: #000000, $alpha: 0);
+    cursor: pointer;
+    &:hover {
+        color: var(--blue);
+        .buttonOnMyProfile__svg {
+            fill: var(--blue);
+        }
+    }
+    &__svg {
+        margin-left: 8px;
+       
+    }
+}
