@@ -114,3 +114,5 @@ const mapStateToProps = (state) => ({
 // @ts-expect-error: Игнорируем ошибку connect(mapStateToProps)(ProfilePasswordWrapper);
 export default connect(mapStateToProps)(ProfilePasswordWrapper);
 
+
+
