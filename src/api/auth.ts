@@ -65,8 +65,22 @@ export default class AuthApi {
     }
   }
 
-  async me(): Promise<UserDTO | APIError> {
-    return authApi.get('/user');
+  async me(): Promise<UserDTO | APIError | null> {
+    // return authApi.get('/user');
+    try {
+      const response = await authApi.get<UserDTO>('/user');
+  
+      if (response.ok) {
+        const userData = await response.json() as UserDTO;
+        return userData;
+      } else {
+        // Если статус не OK, возвращаем null или выбрасываем ошибку
+        return null;
+      }
+    } catch (error) {
+      console.error('Ошибка при получении информации о пользователе', error);
+      return null;
+    }
   }
 
   async logout(): Promise<void | APIError> {

@@ -7,6 +7,7 @@ export type SignUpResponse = {
 };
 
 export type UserDTO = {
+  ok: any;
   json(): unknown;
   id: number;
   login: string;
