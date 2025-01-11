@@ -63,3 +63,4 @@ export class HTTPTransport {
     return response; // это тут я долго работал с аватаром при отправке на сервер
   }
 }
+
