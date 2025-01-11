@@ -16,3 +16,4 @@ export default class ProfileApi {
     return response;
   }
 }
+
