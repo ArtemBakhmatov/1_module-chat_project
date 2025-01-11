@@ -1,4 +1,4 @@
-/* eslint-disable linebreak-style */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import Block from '../../core/Block';
 import { connect } from '../../utils';
@@ -26,7 +26,7 @@ class ProfileWrapper extends Block {
       // @ts-expect-error: Игнорируем ошибку profileData
       FormProfile: new FormProfile({ profileData: props.profileData }), // Передача profileData
     });
-    // console.log('ProfileWrapper props:', props); // Отладка props
+    
   }
 
   openAvatarModal() {
@@ -36,17 +36,12 @@ class ProfileWrapper extends Block {
   }
   
   componentDidUpdate(oldProps: ProfileWrapperProps, newProps: ProfileWrapperProps): boolean {
-    // console.log('ProfileWrapper componentDidUpdate:', { oldProps, newProps });
-    // if (oldProps.profileData !== newProps.profileData) {
-    //   this.children.FormProfile.setProps({ profileData: newProps.profileData });
-    // }
-    // return true;
 
-    console.log('Old props:', oldProps); // Логируем старые пропсы
-    console.log('New props:', newProps); // Логируем новые пропсы
+    console.log('Old props:', oldProps); 
+    console.log('New props:', newProps); 
 
     if (oldProps.profileData?.avatar !== newProps.profileData?.avatar) {
-      console.log('Avatar changed:', newProps.profileData?.avatar); // Логируем изменение аватара
+      console.log('Avatar changed:', newProps.profileData?.avatar); 
   
       this.children.FormProfile.setProps({ profileData: newProps.profileData });
   
@@ -68,7 +63,6 @@ class ProfileWrapper extends Block {
     
     // @ts-expect-error: Игнорируем ошибку window.store 
     const avatarPath = window.store.getState().profile?.avatar;
-    // @ts-expect-error: Игнорируем ошибку window.store 
     const avatarUrl = avatarPath ? `https://ya-praktikum.tech/api/v2/resources${avatarPath}` : window.store.getState().avatarUrl;
     return (
       `

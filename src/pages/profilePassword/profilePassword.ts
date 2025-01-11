@@ -29,8 +29,7 @@ class ProfilePasswordPage extends Block {
         profileData: props.profileData,
         onSubmit: async (data: { oldPassword: string; newPassword: string }) => {
           await changePassword(data);
-          // @ts-expect-error: Suppress error related to router.go possibly not existing
-          window.router.go('/profile');
+          (window.router as unknown as { go: (path: string) => void }).go('/profile');
         },
       }),
     });
@@ -42,8 +41,7 @@ class ProfilePasswordPage extends Block {
   }
 
   onClickProfilePage() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/profile');
+    (window.router as unknown as { go: (path: string) => void }).go('/profile');
   }
 
   componentDidUpdate(oldProps: ProfilePasswordPageProps, newProps: ProfilePasswordPageProps): boolean {

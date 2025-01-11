@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
-
 import Block from '../../core/Block';
 
 import { InputWrapper } from '../input';
@@ -86,12 +82,11 @@ export default class FormProfile extends Block {
       InputPhone: new InputWrapper({
         type: 'tel',
         name: 'phone',
-        // placeholder: '+7(909)-967-30-30',
         classInputProfile: 'input__profile input__profile_eventNone',
         value: props.profileData?.phone || '', // Использование profileData
       }),
     });
-    // console.log('FormProfile props:', props); // Отладка props
+    
   }
 
   onLogout() {
@@ -101,17 +96,17 @@ export default class FormProfile extends Block {
   }
 
   onClickProfileChangePage() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/settings');
+  
+    (window.router as unknown as { go: (path: string) => void }).go('/settings');
   }
 
   onClickProfilePasswordPage() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/password');
+    
+    (window.router as unknown as { go: (path: string) => void }).go('/password');
   }
 
   componentDidUpdate(oldProps: FormProfileProps, newProps: FormProfileProps): boolean {
-    // console.log('FormProfile componentDidUpdate:', { oldProps, newProps });
+    
     if (oldProps.profileData !== newProps.profileData) {
       this.children.InputFirstName.setProps({ value: newProps.profileData?.first_name || '' });
       this.children.InputSecondName.setProps({ value: newProps.profileData?.second_name || '' });
@@ -125,7 +120,7 @@ export default class FormProfile extends Block {
   }
 
   render(): string {
-    // console.log('Rendering FormProfile with:', this.props.profileData); // Отладка данных
+    
     return (
       `
         <form class="profile__userData">
@@ -183,13 +178,7 @@ export default class FormProfile extends Block {
 }
 
 
-// import { connect } from '../../utils';
 
-// const mapStateToProps = (state: { profile: FormProfileProps }): FormProfileProps => ({
-//   ...state.profile,
-// });
-// // @ts-expect-error: Игнорируем ошибку connect(mapStateToPropsShort)(Profile)
-// export default connect(mapStateToProps)(FormProfile);
 
 
 

@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 import Input from './input';
 import ErrorText from './error_text';
@@ -26,7 +25,6 @@ export default class InputWrapper extends Block {
         classInputError: props.classInputError,
       }),
     });
-    // console.log('InputWrapper props:', props); // Логируем props
   }
 
   componentDidUpdate(oldProps: InputWrapperProps, newProps: InputWrapperProps): boolean {

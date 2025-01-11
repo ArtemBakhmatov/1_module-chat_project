@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
 import { TitleElement } from '../title';
@@ -362,8 +361,8 @@ export default class FormRegistration extends Block {
   }
 
   onClickLogin() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/login');
+  
+    (window.router as unknown as { go: (path: string) => void }).go('/login');
   }
 
   render(): string {

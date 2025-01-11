@@ -38,14 +38,6 @@ class AvatarModal extends Block {
     const fileInput = e.target as HTMLInputElement;
     const file = fileInput.files?.[0];
 
-    // if (file) {
-    //   this.selectedFile = file;
-    //   this.setProps({ fileName: file.name, isFileSelected: true, errorMessage: '', successMessage: '' });
-    // } else {
-    //   this.selectedFile = null;
-    //   this.setProps({ fileName: '', isFileSelected: false, errorMessage: 'Нужно выбрать файл', successMessage: '' });
-    // }
-
     if (file) {
       const validExtensions = ['image/jpeg', 'image/png', 'image/gif', 'image/webp'];
 
@@ -112,7 +104,4 @@ class AvatarModal extends Block {
 
 export default AvatarModal;
 
-// <p class="avatarModal__title">Загрузите файл</p>
-// ${successMessage || isFileSelected ? '' : '<input type="file" name="avatar" accept="image/*" />'}
-// ${ successMessage ? '' : '<p class="avatarModal__title"></p>'}
 

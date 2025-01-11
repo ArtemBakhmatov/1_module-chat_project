@@ -3,7 +3,6 @@ import AuthApi from '../api/auth';
 const authApi = new AuthApi();
 
 export const logout = async () => {
-  // @ts-expect-error: Игнорируем ошибку window.store 
   window.store.set({ isLoading: true });
   try {
     await authApi.logout();
@@ -14,10 +13,8 @@ export const logout = async () => {
     window.router.go('/login');
   } catch (error) {
     console.error('Ошибка при выходе из системы', error);
-    // @ts-expect-error: Игнорируем ошибку window.store 
     window.store.set({ logoutError: 'Ошибка при выходе из системы' });
-  } finally {
-    // @ts-expect-error: Игнорируем ошибку window.store 
+  } finally { 
     window.store.set({ isLoading: false });
   }
 };

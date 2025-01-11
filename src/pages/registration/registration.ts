@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import { FormRegistration } from '../../components/formRegistration';
 import { FormWrapper } from '../../components/formWrapper';
 import { Spinner } from '../../components';

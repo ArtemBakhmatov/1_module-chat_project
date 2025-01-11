@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 import Block from '../../core/Block';
 import { ChatDTO } from '../../api/type';
 
@@ -9,7 +10,6 @@ interface ChatListProps {
 export default class ChatList extends Block {
 
   constructor(props: ChatListProps) {
-    //super(props);
     super({
       ...props,
       events: {
@@ -52,7 +52,6 @@ export default class ChatList extends Block {
 
   render() {
     const { chats = [] } = this.props as unknown as ChatListProps; 
-    // @ts-expect-error: игнорируем ошибку
     const pathAvatar = window.store.getState().avatarUrl;
     console.log('Рендеринг чатов:', chats); // Логирование чатов
     return `

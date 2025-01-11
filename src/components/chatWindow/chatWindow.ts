@@ -133,32 +133,6 @@ export default class ChatWindow extends Block {
     return parseInt(input.value, 10);
   }
 
-
-  /* ///////////////// логика для получения пользователя ///////////////
-  componentDidMount() {
-    console.log('ChatWindow монтируется'); // Логирование
-    if (this.props.selectedChat) {
-      console.log('Выбранный чат:', this.props.selectedChat); // Логирование
-      this.loadChatUsers(this.props.selectedChat.id);
-    } else {
-      console.error('selectedChat отсутствует'); // Логирование
-    }
-  }
-
-  async loadChatUsers(chatId: number) {
-    if (!chatId) {
-      console.error('chatId не определен'); // Логирование
-      return;
-    }
-    try {
-      const users = await fetchChatUsers(chatId);
-      console.log('Пользователи чата:', users); // Добавьте логирование
-      this.setProps({ users });
-    } catch (error) {
-      console.error('Ошибка при загрузке пользователей чата', error);
-    }
-  } */
-
   ///////////////////// Логика для отправки сообщений ////////////////////////
   componentDidMount() {
     if (this.props.selectedChat) {
@@ -185,19 +159,6 @@ export default class ChatWindow extends Block {
     if (!selectedChat) {
       return '<div class="chat-window-empty"><div>Выберите чат, чтобы начать переписку</div></div>';
     }
-    ///// для получения списка юзеров , я пока всё закомментировал ////////
-    //const users = this.props.users || [];
-    //console.log('Отображаемые пользователи:', users); // Добавьте логирование
-    // <div class="chat-users">
-    //   <ul class="chat-user-list">
-    //      ${users.map(user => `
-    //         <li class="chat-user-item">
-    //           <img src="${user.avatar}" alt="Avatar" class="chat-user-avatar" />
-    //           <span class="chat-user-name">${user.first_name} ${user.second_name}</span>
-    //         </li>
-    //       `).join('')}
-    //    </ul>
-    //  </div>
   
     return `
         <div class="chat-window">

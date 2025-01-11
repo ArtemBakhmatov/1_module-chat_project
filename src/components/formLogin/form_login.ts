@@ -1,7 +1,6 @@
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
+
 import { InputWrapper } from '../input';
-// import Input from '../input/input';
 import TitleElement from '../title/title';
 import { Button } from '../button';
 
@@ -120,23 +119,6 @@ export default class FormLogin extends Block {
   }
 
   onLogin() {
-    // const loginSubmit = this.props.login;
-    // console.log({
-    //   login: loginSubmit,
-    //   password: this.props.password,
-    // });
-    // if (loginSubmit === undefined) {
-    //   console.log('поле пустое');
-    // }
-    // console.log(loginSubmit);
-    // if (loginSubmit === undefined) {
-    //   this.children.InputLogin.setProps({
-    //     error: true,
-    //     errorText: 'поле пустое',
-    //   });
-    //   return;
-    // }
-    // this.children.InputLogin.setProps({ error: false, errorText: null });
 
     const userLogin = this.props.login;
     const userPassword = this.props.password;
@@ -172,8 +154,7 @@ export default class FormLogin extends Block {
   }
 
   onClickRegistration() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/sign-up');
+    (window.router as unknown as { go: (path: string) => void }).go('/sign-up');
   }
 
   render(): string {

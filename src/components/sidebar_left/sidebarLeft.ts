@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
-/* eslint-disable no-tabs */
 import Block from '../../core/Block';
 
 import SidebarLink from './sidebarLink';

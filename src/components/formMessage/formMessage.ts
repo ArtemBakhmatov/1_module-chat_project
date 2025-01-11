@@ -1,4 +1,3 @@
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 import { TextareaMessageWrapper } from '../textareaMessage';
 

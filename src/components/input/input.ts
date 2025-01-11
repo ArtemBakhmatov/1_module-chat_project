@@ -1,6 +1,5 @@
 /* eslint-disable @typescript-eslint/no-base-to-string */
 /* eslint-disable @typescript-eslint/restrict-template-expressions */
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
 interface InputProps {

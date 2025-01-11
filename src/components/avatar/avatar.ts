@@ -15,14 +15,6 @@ export default class Avatar extends Block {
     });
   }
 
-  // componentDidUpdate(oldProps: AvatarProps, newProps: AvatarProps): boolean {
-  //   // Обновляем аватарку, если изменился URL
-  //   if (oldProps.src !== newProps.src) {
-  //     this.getContent().querySelector('img')!.src = newProps.src;
-  //   }
-  //   return true;
-  // }
-
   // @ts-expect-error: игнорируем ошибку
   componentDidUpdate(oldProps: AvatarProps): boolean {
     console.log('componentDidUpdate called');

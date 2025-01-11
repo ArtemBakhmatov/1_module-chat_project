@@ -1,6 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 import { connect } from '../../utils';
 import { loadProfile } from '../../services/profile';
@@ -35,8 +32,7 @@ class ProfileChangePage extends Block {
         onSubmit: async (data: Partial<UserDTO>) => {
           await updateProfile(data);
           console.log('страница для редактирования');
-          // @ts-expect-error: Suppress error related to router.go possibly not existing
-          window.router.go('/profile');
+          (window.router as unknown as { go: (path: string) => void }).go('/profile');
         },
       }),
       Spinner: new Spinner({}),
@@ -53,8 +49,7 @@ class ProfileChangePage extends Block {
   }
 
   onClickProfilePage() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/profile');
+    (window.router as unknown as { go: (path: string) => void }).go('/profile');
   }
 
   protected render(): string {

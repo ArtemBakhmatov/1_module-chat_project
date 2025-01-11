@@ -1,6 +1,4 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
+/* eslint-disable @typescript-eslint/restrict-template-expressions */
 
 import Block from '../../core/Block';
 import { connect } from '../../utils';
@@ -49,7 +47,7 @@ class ProfileChangeWrapper extends Block {
     //return true;
 
     if (oldProps.profileData?.avatar !== newProps.profileData?.avatar) {
-      console.log('Avatar changed:', newProps.profileData?.avatar); // Логируем изменение аватара
+      console.log('Avatar changed:', newProps.profileData?.avatar); 
   
       this.children.FormProfileChange.setProps({ profileData: newProps.profileData });
       
@@ -70,7 +68,6 @@ class ProfileChangeWrapper extends Block {
   render(): string {
     // @ts-expect-error: Игнорируем ошибку window.router
     const avatarPath = window.store.getState().profile?.avatar;
-    // @ts-expect-error: Игнорируем ошибку window.router
     const avatarUrl = avatarPath ? `https://ya-praktikum.tech/api/v2/resources${avatarPath}` : window.store.getState().avatarUrl;
 
     return (

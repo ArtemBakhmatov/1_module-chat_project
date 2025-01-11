@@ -10,30 +10,27 @@ import './styles/style.scss';
 import icon from './assets/icons/Union.png';
 
 Object.entries(Components).forEach(([name, component]) => {
-  // @ts-expect-error: Игнорируем ошибку типов, так как компоненты корректно регистрируются в Handlebars
-  Handlebars.registerPartial(name, component);
+  Handlebars.registerPartial(name, component as unknown as Handlebars.TemplateDelegate);
 });
 
 const router = new Router('#app');
-// @ts-expect-error: Игнорируем ошибку window.router 
-window.router = router;
 
-// @ts-expect-error: Игнорируем ошибку window.store 
+window.router = router as unknown as { go: (path: string) => void };
+
 window.store = new Store({
   isLoading: false,
   loginError: null,
   registrationError: null,
-  profile: null, // Добавьте это для хранения данных профиля
+  profile: null,
   passwordError: null,
   avatarUrl: icon,
   chats: [],
   selectedChat: null,
-  chatUsers: [], // Добавьте это для хранения пользователей чата
+  chatUsers: [],
 });
 
 router.use('/', Pages.LoginPage)
   .use('/sign-up', Pages.RegistrationPage)
-  //.use('/messenger', Pages.ChatListPage)
   .use('/messenger', Pages.ChatPage)
   .use('/login', Pages.LoginPage)
   .use('*', Pages.Error404Page)

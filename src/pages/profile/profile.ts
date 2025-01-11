@@ -1,6 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
 import Block from '../../core/Block';
 
 import { SidebarLeft } from '../../components';
@@ -50,8 +47,7 @@ class ProfilePage extends Block {
   }
 
   onClickMessengerPage() {
-    // @ts-expect-error: Suppress error related to router.go possibly not existing
-    window.router.go('/messenger');
+    (window.router as unknown as { go: (path: string) => void }).go('/messenger');
   }
 
   protected render(): string {

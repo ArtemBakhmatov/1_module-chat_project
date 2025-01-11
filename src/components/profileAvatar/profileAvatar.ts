@@ -1,7 +1,3 @@
-/* eslint-disable linebreak-style */
-/* eslint-disable max-len */
-/* eslint-disable linebreak-style */
-
 import Block from '../../core/Block';
 
 interface ProfileAvatarProps {
