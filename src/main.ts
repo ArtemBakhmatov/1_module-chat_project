@@ -3,44 +3,39 @@ import Handlebars from 'handlebars';
 import * as Components from './components';
 import * as Pages from './pages';
 
+import Router from './core/Router';
+import { Store } from './core/Store';
 import './styles/style.scss';
 
-const pages = {
-  'nav': [ Pages.NavigatePage ], 
-  'login': [Pages.LoginPage],
-  'registration': [ Pages.RegistrationPage ],
-  'profile': [ Pages.ProfilePage ],
-  '404': [ Pages.Error404Page ],
-  '500': [ Pages.Error500Page ],
-  'chatList': [ Pages.ChatListPage ],
-  'profileChange': [ Pages.ProfileChangePage]
-};
+import icon from './assets/icons/Union.png';
 
-Object.entries(Components).forEach(([ name, component ]) => {
-  Handlebars.registerPartial(name, component);
+Object.entries(Components).forEach(([name, component]) => {
+  Handlebars.registerPartial(name, component as unknown as Handlebars.TemplateDelegate);
 });
 
-function navigate(page: string) {
-  //@ts-ignore
-  const [ source, context ] = pages[page];
-  const container = document.getElementById('app')!;
-  container.innerHTML = Handlebars.compile(source)(context);
-}
+const router = new Router('#app');
 
-document.addEventListener('DOMContentLoaded', () => navigate('nav'));
+window.router = router as unknown as { go: (path: string) => void };
 
-document.addEventListener('click', e => {
-  //@ts-ignore
-  const page = e.target.getAttribute('page');
-  if (page) {
-    navigate(page);
-
-    e.preventDefault();
-    e.stopImmediatePropagation();
-  }
+window.store = new Store({
+  isLoading: false,
+  loginError: null,
+  registrationError: null,
+  profile: null,
+  passwordError: null,
+  avatarUrl: icon,
+  chats: [],
+  selectedChat: null,
+  chatUsers: [],
 });
 
-
-
-
+router.use('/', Pages.LoginPage)
+  .use('/sign-up', Pages.RegistrationPage)
+  .use('/messenger', Pages.ChatPage)
+  .use('/login', Pages.LoginPage)
+  .use('*', Pages.Error404Page)
+  .use('/profile', Pages.ProfilePage)
+  .use('/settings', Pages.ProfileChangePage)
+  .use('/password', Pages.ProfilePasswordPage)
+  .start();
 

@@ -12,3 +12,131 @@
     display: none;
 }
 
+.modal {
+  .error-message {
+    text-align: center;
+    position: fixed;
+      top: 25%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 225px;
+  }
+}
+
+.error-message {
+  color: red;
+  margin-top: 10px;
+}
+  
+.avatar-modal {
+  background-color: white;
+  padding: 20px;
+  border-radius: 8px;
+}
+// Стили модального окна пока суда добавил, так как тут работают, в компоненте нет
+.avatarModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 999;
+  &__form {
+    background-color: white;
+    padding: 40px 30px;
+    border-radius: 12px;
+    box-shadow: 0 0 1px 0 #000;
+    width: 340px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  &__title {
+    color: #1E1E1E;
+    font-weight: 600;
+    font-size: 15px;
+  }
+  &__errorMessage {
+    color: var(--red);
+    margin-top: 14px;
+    font-size: 11px;
+  }
+  &__nameImg {
+    color: var(--grayMiddle);
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 16px;
+    &_active {
+      margin: 40px 0 60px 0;
+    }
+  }
+  &__close {
+    background-color: rgba($color: #000000, $alpha: 0.0);
+    color: var(--red);
+    border: none;
+    cursor: pointer;
+    font-size: 30px;
+    position: absolute;
+    right: -40px;
+    top: -12px;
+    width: 30px;
+    transition: 0.1s all ease;
+    &:hover {
+      color: var(--blue);
+    }
+  }
+  &__file {
+    position: relative;
+    display: flex;
+    margin: 40px 0px 45px 0px;
+    &:hover {
+      span {
+        background-color: var(--blue);
+        color: var(--white);
+        text-decoration: none;
+        border-radius: 8px;
+      }
+    }
+    
+    input[type=file] {
+      position: absolute;
+      z-index: -1;
+      opacity: 0;
+      display: block;
+      width: 0;
+      height: 0;
+    }
+    span {
+      width: 135px;
+      text-align: center;
+      font-weight: 500;
+      font-size: 12px;
+      line-height: 16px;
+      color: var(--blue);
+      text-decoration: underline;
+      cursor: pointer;
+      transition: 0.1s all ease;
+    }
+  }
+}
+    
+.selected {
+  background-color: #E4EDFD;
+}
+  
+.delete-modal {
+  button {
+    margin-top: 20px;
+    width: 100%;
+  }
+}
+
+

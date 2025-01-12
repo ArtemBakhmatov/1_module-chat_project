@@ -1,2 +1,8 @@
-import './login.scss'
-export { default as LoginPage } from './login.hbs?raw';
+import './login.scss';
+
+import { withRouter } from '../../utils';
+import LoginPage from './login';
+
+export default withRouter(LoginPage);
+
+

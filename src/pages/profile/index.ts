@@ -1,4 +1,8 @@
 import './profile.scss';
 
-export { default as ProfilePage } from './profile.hbs?raw';
+import { withRouter } from '../../utils';
+import Profile from './profile';
+
+export default withRouter(Profile);
+
 
