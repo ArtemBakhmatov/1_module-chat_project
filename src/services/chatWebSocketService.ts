@@ -9,8 +9,8 @@ export class ChatWebSocketService {
   
   private socket: WebSocket | null = null;
   
-  public connect(chatId: number): void {
-    this.socket = new WebSocket(`wss://ya-praktikum.tech/api/v2/chats/${chatId}`);
+  public connect(chatId: number, token: string, userId: number ): void {
+    this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
       
     this.socket.addEventListener('open', () => {
       console.log('Connected to chat'); // Логирование

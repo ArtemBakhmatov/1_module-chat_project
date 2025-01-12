@@ -11,6 +11,12 @@ export default class ChatApi {
     return response.json();
   }
 
+  async getToken(chatId: number): Promise<string> {
+    const response = await chatApi.post(`/token/${ chatId }`);
+    const result = await response.json();
+    return result.token;
+  }
+
   async createChat(data: CreateChat): Promise<number> {
     const response = await chatApi.post('', { data });
 

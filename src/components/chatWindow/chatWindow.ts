@@ -1,9 +1,10 @@
 import Block from '../../core/Block';
 
 import { ChatDTO } from '../../api/type';
-import { deleteChat } from '../../services/chatService';
+import { deleteChat, fetchToken } from '../../services/chatService';
 import { addUserToChat, removeUserFromChat } from '../../services/chatService';
 import { ChatWebSocketService } from '../../services/chatWebSocketService';
+import { loadProfileID } from '../../services/profile';
 
 interface ChatWindowProps {
   selectedChat: ChatDTO | null;
@@ -11,7 +12,6 @@ interface ChatWindowProps {
 }
   
 export default class ChatWindow extends Block {
-  // @ts-expect-error: игнорируем ошибку
   chatWebSocketService: ChatWebSocketService;
 
   constructor(props: ChatWindowProps) {
@@ -83,10 +83,12 @@ export default class ChatWindow extends Block {
               modal.style.display = 'none';
             }
           }
-          this.chatWebSocketService = new ChatWebSocketService();
+          
         },
       },
     });
+
+    this.chatWebSocketService = new ChatWebSocketService();
   }
 
   private handleAddUser(userId: number) {
@@ -134,16 +136,43 @@ export default class ChatWindow extends Block {
   }
 
   ///////////////////// Логика для отправки сообщений ////////////////////////
+  // componentDidMount() {
+  //   if (this.props.selectedChat) {
+  //     // @ts-expect-error: игнорируем ошибку
+  //     const { id } = this.props.selectedChat;
+  //     this.chatWebSocketService.connect(id);
+  
+  //     this.loadOldMessages();
+  //   }
+  // }
+
+  // новое решение 
+
   componentDidMount() {
-    if (this.props.selectedChat) {
-      // @ts-expect-error: игнорируем ошибку
-      const { id } = this.props.selectedChat;
-      this.chatWebSocketService.connect(id);
-  
-      this.loadOldMessages();
-    }
+    // Переместите вызов loadProfile сюда, если он не должен вызываться в конструкторе
+    void loadProfileID();
+    //console.log(profileData.id)
   }
-  
+
+  protected componentDidUpdate(): boolean {
+    
+    void loadProfileID().then(() => {
+      const profile = window.store.getState().profile;
+      if (profile && this.props.selectedChat) {
+        // @ts-expect-error: игнорируем ошибку
+        const { id } = this.props.selectedChat;
+        // @ts-expect-error: игнорируем ошибку
+        const userId = profile.id;
+        fetchToken(id).then((token) => {
+          this.chatWebSocketService.connect(id, token, userId);
+          this.loadOldMessages();
+        }).catch((e) => console.log(e));
+      }
+    });
+
+    return true;
+  }
+
   componentWillUnmount() {
     this.chatWebSocketService.disconnect();
   }

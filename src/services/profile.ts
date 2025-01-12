@@ -20,3 +20,22 @@ export const loadProfile = async () => {
   
 };
 
+export const loadProfileID = async () => {
+  console.log('loadProfileID called'); // Логирование для проверки вызова
+  try {
+    const response = await profileApi.getProfile();
+    
+    const profileData = await response.json(); // Извлечение JSON-данных 
+    console.log('ProfileID:', profileData.id); // Добавьте это для проверки
+    window.store.set({ profile: profileData });
+  } catch (error) {
+    console.error('Error loading profile:', error);
+  } finally {
+    window.store.set({ isLoading: false });
+  }
+  
+};
+
+
+
+

@@ -35,6 +35,7 @@ class ProfilePage extends Block {
   componentDidMount() {
     // Переместите вызов loadProfile сюда, если он не должен вызываться в конструкторе
     void loadProfile();
+    //void loadProfileID();
   }
 
   componentDidUpdate(oldProps: ProfilePageProps, newProps: ProfilePageProps): boolean {

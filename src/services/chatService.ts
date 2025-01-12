@@ -77,4 +77,16 @@ export const fetchChatUsers = async (chatId: number): Promise<UserDTO[]> => {
   }
 };
 
+export const fetchToken = async (chatId: number): Promise<string> => {
+  try {
+    const token = await chatApi.getToken(chatId);
+    console.log('Получен токен', token );
+    return token;
+  } catch (error) {
+    console.error('Ошибка при получении токена', error);
+    throw error;
+  }
+};
+
+
 
