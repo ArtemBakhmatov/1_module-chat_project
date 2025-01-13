@@ -1,4 +1,5 @@
 import Block from '../../core/Block';
+import { connect } from '../../utils';
 
 import { ChatDTO } from '../../api/type';
 import { deleteChat, fetchToken } from '../../services/chatService';
@@ -9,9 +10,10 @@ import { loadProfileID } from '../../services/profile';
 interface ChatWindowProps {
   selectedChat: ChatDTO | null;
   onDeleteChat: () => void;
+  messages: Array<{ content: string }>; 
 }
   
-export default class ChatWindow extends Block {
+class ChatWindow extends Block {
   chatWebSocketService: ChatWebSocketService;
 
   constructor(props: ChatWindowProps) {
@@ -87,8 +89,8 @@ export default class ChatWindow extends Block {
         },
       },
     });
-
-    this.chatWebSocketService = new ChatWebSocketService();
+    // @ts-expect-error: игнорируем ошибку
+    this.chatWebSocketService = new ChatWebSocketService(window.store);
   }
 
   private handleAddUser(userId: number) {
@@ -135,26 +137,17 @@ export default class ChatWindow extends Block {
     return parseInt(input.value, 10);
   }
 
-  ///////////////////// Логика для отправки сообщений ////////////////////////
-  // componentDidMount() {
-  //   if (this.props.selectedChat) {
-  //     // @ts-expect-error: игнорируем ошибку
-  //     const { id } = this.props.selectedChat;
-  //     this.chatWebSocketService.connect(id);
-  
-  //     this.loadOldMessages();
-  //   }
-  // }
-
-  // новое решение 
-
   componentDidMount() {
     // Переместите вызов loadProfile сюда, если он не должен вызываться в конструкторе
     void loadProfileID();
     //console.log(profileData.id)
   }
 
-  protected componentDidUpdate(): boolean {
+  protected componentDidUpdate(oldProps: any, newProps: any): boolean {
+
+    if (oldProps.messages !== newProps.messages) {
+      this.setProps({ messages: newProps.messages });
+    }
     
     void loadProfileID().then(() => {
       const profile = window.store.getState().profile;
@@ -183,7 +176,8 @@ export default class ChatWindow extends Block {
   //////////////////////////////////////////////////////////////////////
 
   render() {
-    const { selectedChat } = this.props;
+    const { selectedChat, messages = [] } = this.props as unknown as ChatWindowProps;
+    console.log( messages );
 
     if (!selectedChat) {
       return '<div class="chat-window-empty"><div>Выберите чат, чтобы начать переписку</div></div>';
@@ -200,7 +194,9 @@ export default class ChatWindow extends Block {
           
 
           <div class="chat-messages">
-            
+            ${messages.map((message: { content: string }) => `
+              <div class="message">${message.content}</div>
+            `).join('')} 
           </div>
 
           <div class="chat-input">
@@ -228,6 +224,13 @@ export default class ChatWindow extends Block {
       `;
   }
 }
+
+const mapStateToProps = (state: any) => ({
+  messages: state.messages || [],
+});
+
+// @ts-expect-error: игнорируем ошибку
+export default connect(mapStateToProps)(ChatWindow);
 
 
 

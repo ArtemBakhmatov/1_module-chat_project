@@ -1,5 +1,20 @@
+import { Store } from '../core/Store';
+
+interface Message {
+  type: string;
+  content: string;
+}
+
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export class ChatWebSocketService {
+
+  private socket: WebSocket | null = null;
+
+  private store: Store;
+
+  constructor(store: Store) {
+    this.store = store;
+  }
   
   send( 
     // @ts-expect-error: Игнорируем ошибку arg0
@@ -7,7 +22,7 @@ export class ChatWebSocketService {
     throw new Error('Method not implemented.');
   }
   
-  private socket: WebSocket | null = null;
+  // private socket: WebSocket | null = null;
   
   public connect(chatId: number, token: string, userId: number ): void {
     this.socket = new WebSocket(`wss://ya-praktikum.tech/ws/chats/${userId}/${chatId}/${token}`);
@@ -42,6 +57,11 @@ export class ChatWebSocketService {
     const data = JSON.parse(event.data);
     console.log('Получено сообщение:', data); // Логирование
     // Обработка входящего сообщения
+
+    if (data.type === 'message') {
+      const currentMessages = this.store.getState().messages as Message[] || [];
+      this.store.set({ messages: [...currentMessages, data] });
+    }
   }
 }
 
