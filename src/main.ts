@@ -8,6 +8,7 @@ import { Store } from './core/Store';
 import './styles/style.scss';
 
 import icon from './assets/icons/Union.png';
+// import { ChatWebSocketService } from './services/chatWebSocketService';
 
 Object.entries(Components).forEach(([name, component]) => {
   Handlebars.registerPartial(name, component as unknown as Handlebars.TemplateDelegate);
@@ -27,7 +28,13 @@ window.store = new Store({
   chats: [],
   selectedChat: null,
   chatUsers: [],
+  messages: [], // Добавляем поле для хранения сообщений
 });
+
+//window.store = store;
+
+// Инициализируем WebSocket сервис, если он требует store
+//const chatWebSocketService = new ChatWebSocketService(store);
 
 router.use('/', Pages.LoginPage)
   .use('/sign-up', Pages.RegistrationPage)
