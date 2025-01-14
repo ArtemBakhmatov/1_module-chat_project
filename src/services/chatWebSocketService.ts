@@ -1,9 +1,5 @@
 import { Store } from '../core/Store';
 
-interface Message {
-  type: string;
-  content: string;
-}
 
 /* eslint-disable @typescript-eslint/no-unused-vars */
 export class ChatWebSocketService {
@@ -29,6 +25,7 @@ export class ChatWebSocketService {
       
     this.socket.addEventListener('open', () => {
       console.log('Connected to chat'); // Логирование
+      this.loadOldMessages();
     });
   
     this.socket.addEventListener('message', this.handleMessage.bind(this));
@@ -55,12 +52,20 @@ export class ChatWebSocketService {
   
   private handleMessage(event: MessageEvent): void {
     const data = JSON.parse(event.data);
-    console.log('Получено сообщение:', data); // Логирование
-    // Обработка входящего сообщения
+    console.log('Получено сообщение из WebSocket:', data);
 
-    if (data.type === 'message') {
-      const currentMessages = this.store.getState().messages as Message[] || [];
+    if (data.type === 'message' || data.type === 'old_message') {
+      const currentMessages = this.store.getState().messages as Array<{ content: string }> || [];
+      console.log('Текущие сообщения перед обновлением:', currentMessages);
+
       this.store.set({ messages: [...currentMessages, data] });
+      console.log('Сообщения после обновления Store:', this.store.getState().messages);
+    }
+  }
+
+  private loadOldMessages(): void {
+    if (this.socket && this.socket.readyState === WebSocket.OPEN) {
+      this.socket.send(JSON.stringify({ type: 'get old', content: '0' }));
     }
   }
 }
