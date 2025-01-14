@@ -54,11 +54,18 @@ export class ChatWebSocketService {
     const data = JSON.parse(event.data);
     console.log('Получено сообщение из WebSocket:', data);
 
-    if (data.type === 'message' || data.type === 'old_message') {
+    const answerType = Array.isArray(data) ? data[0].type : data.type;
+
+    if (answerType === 'message' || answerType === 'old_message') {
       const currentMessages = this.store.getState().messages as Array<{ content: string }> || [];
       console.log('Текущие сообщения перед обновлением:', currentMessages);
 
-      this.store.set({ messages: [...currentMessages, data] });
+      if (Array.isArray(data)) {
+        this.store.set({ messages: [...currentMessages, ...data] });
+      } else {
+        this.store.set({ messages: [...currentMessages, data] });
+      }
+      
       console.log('Сообщения после обновления Store:', this.store.getState().messages);
     }
   }

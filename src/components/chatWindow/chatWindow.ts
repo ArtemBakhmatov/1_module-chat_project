@@ -150,19 +150,23 @@ class ChatWindow extends Block {
       this.setProps({ messages: this.props.messages });
     }
     
-    void loadProfileID().then(() => {
-      const profile = window.store.getState().profile;
-      if (profile && this.props.selectedChat) {
-        // @ts-expect-error: игнорируем ошибку
-        const { id } = this.props.selectedChat;
-        // @ts-expect-error: игнорируем ошибку
-        const userId = profile.id;
-        fetchToken(id).then((token) => {
-          this.chatWebSocketService.connect(id, token, userId);
-          // this.loadOldMessages();
-        }).catch((e) => console.log(e));
-      }
-    });
+    // @ts-expect-error: игнорируем ошибку
+    if (oldProps.selectedChat?.id !== this.props.selectedChat?.id) {
+      void loadProfileID().then(() => {
+        const profile = window.store.getState().profile;
+        if (profile && this.props.selectedChat) {
+          // @ts-expect-error: игнорируем ошибку
+          const { id } = this.props.selectedChat;
+          // @ts-expect-error: игнорируем ошибку
+          const userId = profile.id;
+          fetchToken(id).then((token) => {
+            this.chatWebSocketService.connect(id, token, userId);
+            // this.loadOldMessages();
+          }).catch((e) => console.log(e));
+        }
+      });
+    }
+
 
     return true;
   }

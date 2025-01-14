@@ -88,5 +88,12 @@ export const fetchToken = async (chatId: number): Promise<string> => {
   }
 };
 
+export const clearMessages = () => {
+  window.store.set({ messages: [] });
+};
+
+
+
+
 
 
