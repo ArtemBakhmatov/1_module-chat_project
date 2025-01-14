@@ -3,7 +3,7 @@ import { ChatList, ChatFormSearch, ButtonOnMyProfile } from '../../components';
 import { ChatWindow } from '../../components';
 import { ChatDTO } from '../../api/type';
 
-import { createChat, fetchChats } from '../../services/chatService';
+import { createChat, fetchChats, clearMessages } from '../../services/chatService';
 import { connect } from '../../utils';
 
 class ChatPage extends Block {
@@ -81,6 +81,7 @@ class ChatPage extends Block {
     }
     if (oldProps.selectedChat !== newProps.selectedChat) {
       this.children.ChatWindow.setProps({ selectedChat: newProps.selectedChat });
+      clearMessages();
     }
     return true;
   }

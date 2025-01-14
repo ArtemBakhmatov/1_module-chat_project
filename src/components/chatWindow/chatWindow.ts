@@ -143,25 +143,30 @@ class ChatWindow extends Block {
     //console.log(profileData.id)
   }
 
-  protected componentDidUpdate(oldProps: any, newProps: any): boolean {
+  protected componentDidUpdate(oldProps: any): boolean {
 
-    if (oldProps.messages !== newProps.messages) {
-      this.setProps({ messages: newProps.messages });
+    if (oldProps.messages !== this.props.messages) {
+      console.log('Обновление сообщений в компоненте:', this.props.messages);
+      this.setProps({ messages: this.props.messages });
     }
     
-    void loadProfileID().then(() => {
-      const profile = window.store.getState().profile;
-      if (profile && this.props.selectedChat) {
-        // @ts-expect-error: игнорируем ошибку
-        const { id } = this.props.selectedChat;
-        // @ts-expect-error: игнорируем ошибку
-        const userId = profile.id;
-        fetchToken(id).then((token) => {
-          this.chatWebSocketService.connect(id, token, userId);
-          this.loadOldMessages();
-        }).catch((e) => console.log(e));
-      }
-    });
+    // @ts-expect-error: игнорируем ошибку
+    if (oldProps.selectedChat?.id !== this.props.selectedChat?.id) {
+      void loadProfileID().then(() => {
+        const profile = window.store.getState().profile;
+        if (profile && this.props.selectedChat) {
+          // @ts-expect-error: игнорируем ошибку
+          const { id } = this.props.selectedChat;
+          // @ts-expect-error: игнорируем ошибку
+          const userId = profile.id;
+          fetchToken(id).then((token) => {
+            this.chatWebSocketService.connect(id, token, userId);
+            // this.loadOldMessages();
+          }).catch((e) => console.log(e));
+        }
+      });
+    }
+
 
     return true;
   }
@@ -169,15 +174,10 @@ class ChatWindow extends Block {
   componentWillUnmount() {
     this.chatWebSocketService.disconnect();
   }
-  
-  private loadOldMessages() {
-    this.chatWebSocketService.send({ type: 'get old', content: '0' });
-  }
-  //////////////////////////////////////////////////////////////////////
 
   render() {
     const { selectedChat, messages = [] } = this.props as unknown as ChatWindowProps;
-    console.log( messages );
+    console.log('Сообщения в render:', messages);
 
     if (!selectedChat) {
       return '<div class="chat-window-empty"><div>Выберите чат, чтобы начать переписку</div></div>';

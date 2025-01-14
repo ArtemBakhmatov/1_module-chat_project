@@ -18,7 +18,7 @@ export function connect(mapStateToProps: (state: State) => Props) {
 
         this.onChangeStoreCallback = () => {
           const newState = mapStateToProps(store.getState());
-          console.log('New state in connect:', newState);
+          //console.log('New state in connect:', newState);
 
           if (!isEqual(state, newState)) {
             // @ts-expect-error: Игнорируем ошибку this.setProps({ ...newState });
