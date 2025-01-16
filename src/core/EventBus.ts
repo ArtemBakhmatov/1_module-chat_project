@@ -36,6 +36,10 @@ export default class EventBus {
       listener(...args);
     });
   }
+
+  public getListeners(): Record<string, EventCallback[]> {
+    return { ...this.listeners };
+  }
 }
 
 

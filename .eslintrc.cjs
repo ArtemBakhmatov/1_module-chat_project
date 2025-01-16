@@ -29,4 +29,13 @@ module.exports = {
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
   },
+  overrides: [
+     {
+       "files": ["mochaSetup.js"],
+       "parser": "espree", // Использовать стандартный парсер для JavaScript
+       "env": {
+         "mocha": true
+       }
+     }
+   ]
 };

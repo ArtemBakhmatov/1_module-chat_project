@@ -109,6 +109,14 @@ class Router {
     }
     return existingRoute;
   }
+
+  public getRoutes(): Route[] {
+    return this.routes;
+  }
+
+  public findRoute(pathname: string): Route | undefined {
+    return this.getRoute(pathname);
+  }
 }
 
 export default Router;

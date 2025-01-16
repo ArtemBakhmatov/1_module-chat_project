@@ -256,6 +256,10 @@ export default class Block {
   public hide() {
     this.getContent().style.display = 'none';
   }
+
+  public getProps(): Props {
+    return this.props;
+  }
 }
 
 
