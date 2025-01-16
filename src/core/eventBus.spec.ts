@@ -35,3 +35,4 @@ describe('EventBus', () => {
     expect(() => eventBus.emit('non-existing')).to.not.throw();
   });
 });
+

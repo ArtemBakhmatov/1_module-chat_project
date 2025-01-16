@@ -38,3 +38,4 @@ describe('Router', () => {
     expect(route).to.not.be.undefined;
   });
 });
+

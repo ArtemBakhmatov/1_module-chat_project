@@ -118,3 +118,4 @@ describe('Block', () => {
     expect(block.getContent().outerHTML).to.include('Test Block');
   });
 });
+
