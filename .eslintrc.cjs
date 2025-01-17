@@ -28,18 +28,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
-    '@typescript-eslint/await-thenable': "off",
-    '@typescript-eslint/no-base-to-string': "off",
-    "@typescript-eslint/no-duplicate-type-constituents": "off",
-    "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-implied-eval": "off",
-    '@typescript-eslint/no-misused-promises': 'off',
-    '@typescript-eslint/no-redundant-type-constituents': 'off',
-    '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-    '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-    '@typescript-eslint/require-await': 'off',
-    '@typescript-eslint/*': 'off',
-    '@typescript-eslint/restrict-plus-operands': 'off'
+
+
   },
   overrides: [
      {
@@ -49,18 +39,7 @@ module.exports = {
          "mocha": true
        },
        rules: {
-        "@typescript-eslint/await-thenable": "off",
-        "@typescript-eslint/no-base-to-string": "off",
-        "@typescript-eslint/no-duplicate-type-constituents": "off",
-        "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/no-implied-eval": "off",
-        '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/no-redundant-type-constituents': 'off',
-        '@typescript-eslint/no-unnecessary-type-assertion': 'off',
-        '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-        '@typescript-eslint/require-await': 'off',
-        '@typescript-eslint/*': 'off',
-        '@typescript-eslint/restrict-plus-operands': 'off'
+        
       }
      }
    ]
