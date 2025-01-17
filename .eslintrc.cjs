@@ -39,6 +39,7 @@ module.exports = {
     '@typescript-eslint/no-unsafe-enum-comparison': 'off',
     '@typescript-eslint/require-await': 'off',
     '@typescript-eslint/*': 'off',
+    '@typescript-eslint/restrict-plus-operands': 'off'
   },
   overrides: [
      {
@@ -59,6 +60,7 @@ module.exports = {
         '@typescript-eslint/no-unsafe-enum-comparison': 'off',
         '@typescript-eslint/require-await': 'off',
         '@typescript-eslint/*': 'off',
+        '@typescript-eslint/restrict-plus-operands': 'off'
       }
      }
    ]
