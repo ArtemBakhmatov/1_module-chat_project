@@ -31,7 +31,8 @@ module.exports = {
     '@typescript-eslint/await-thenable': "off",
     '@typescript-eslint/no-base-to-string': "off",
     "@typescript-eslint/no-duplicate-type-constituents": "off",
-    "@typescript-eslint/no-floating-promises": "off"
+    "@typescript-eslint/no-floating-promises": "off",
+    "@typescript-eslint/no-implied-eval": "off"
   },
   overrides: [
      {
@@ -44,7 +45,8 @@ module.exports = {
         "@typescript-eslint/await-thenable": "off",
         "@typescript-eslint/no-base-to-string": "off",
         "@typescript-eslint/no-duplicate-type-constituents": "off",
-        "@typescript-eslint/no-floating-promises": "off"
+        "@typescript-eslint/no-floating-promises": "off",
+        "@typescript-eslint/no-implied-eval": "off"
       }
      }
    ]
