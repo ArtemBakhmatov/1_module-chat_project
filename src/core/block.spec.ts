@@ -94,18 +94,18 @@ describe('Block', () => {
     }
   }
 
-  it('should initialize with correct props', () => {
+  it('должен инициализироваться с правильными свойствами', () => {
     const block = new TestBlock({ testProp: 'testValue' });
     expect(block.getProps().testProp).to.equal('testValue');
   });
 
-  it('should update props and re-render', () => {
+  it('должен обновлять свойства и повторно рендериться', () => {
     const block = new TestBlock();
     block.setProps({ newProp: 'newValue' });
     expect(block.getProps().newProp).to.equal('newValue');
   });
 
-  it('should show and hide element', () => {
+  it('должен показывать и скрывать элемент', () => {
     const block = new TestBlock();
     block.show();
     expect(block.getContent().style.display).to.equal('block');
@@ -113,7 +113,7 @@ describe('Block', () => {
     expect(block.getContent().style.display).to.equal('none');
   });
 
-  it('should return the content', () => {
+  it('должен возвращать контент', () => {
     const block = new TestBlock();
     expect(block.getContent().outerHTML).to.include('Test Block');
   });

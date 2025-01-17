@@ -10,12 +10,12 @@ describe('EventBus', () => {
     callback = () => {};
   });
 
-  it('should register event listener', () => {
+  it('должен зарегистрировать слушатель события', () => {
     eventBus.on('test', callback);
     expect(eventBus.getListeners().test).to.include(callback);
   });
 
-  it('should emit event', () => {
+  it('должен вызвать событие', () => {
     let called = false;
     eventBus.on('test', () => {
       called = true;
@@ -25,13 +25,13 @@ describe('EventBus', () => {
     expect(called).to.be.true;
   });
 
-  it('should remove event listener', () => {
+  it('должен удалить слушатель события', () => {
     eventBus.on('test', callback);
     eventBus.off('test', callback);
     expect(eventBus.getListeners().test).to.not.include(callback);
   });
 
-  it('should not throw error if emitting non-existing event', () => {
+  it('не должен вызывать ошибку, если событие не зарегистрировано', () => {
     expect(() => eventBus.emit('non-existing')).to.not.throw();
   });
 });

@@ -9,12 +9,12 @@ describe('Router', () => {
     router = new Router('#app');
   });
 
-  it('should register routes', () => {
+  it('должен зарегистрировать маршруты', () => {
     router.use('/test', () => {});
     expect(router.getRoutes()).to.have.lengthOf(1);
   });
 
-  it('should find the correct route', () => {
+  it('должен находить правильный маршрут', () => {
     const block = () => {};
     router.use('/test', block);
     const route = router.findRoute('/test');
@@ -22,7 +22,7 @@ describe('Router', () => {
     expect(route).to.not.be.undefined;
   });
 
-  it('should navigate to a given path', () => {
+  it('должен перейти по заданному пути', () => {
     const stub = sinon.stub(router, 'go');
     router.go('/test');
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -30,7 +30,7 @@ describe('Router', () => {
     stub.restore();
   });
 
-  it('should handle unknown routes', () => {
+  it('должен обрабатывать неизвестные маршруты', () => {
     const block = () => {};
     router.use('*', block);
     const route = router.findRoute('/unknown');
