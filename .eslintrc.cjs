@@ -33,9 +33,9 @@ module.exports = {
      {
        files: ["mochaSetup.js"],
        parser: "espree", 
-       env: {
-         "mocha": true
-       }
+      //  env: {
+      //    "mocha": true
+      //  }
      }
    ]
 };
