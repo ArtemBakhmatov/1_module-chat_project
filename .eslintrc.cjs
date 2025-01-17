@@ -32,7 +32,8 @@ module.exports = {
     '@typescript-eslint/no-base-to-string': "off",
     "@typescript-eslint/no-duplicate-type-constituents": "off",
     "@typescript-eslint/no-floating-promises": "off",
-    "@typescript-eslint/no-implied-eval": "off"
+    "@typescript-eslint/no-implied-eval": "off",
+    '@typescript-eslint/no-misused-promises': 'off'
   },
   overrides: [
      {
@@ -46,7 +47,8 @@ module.exports = {
         "@typescript-eslint/no-base-to-string": "off",
         "@typescript-eslint/no-duplicate-type-constituents": "off",
         "@typescript-eslint/no-floating-promises": "off",
-        "@typescript-eslint/no-implied-eval": "off"
+        "@typescript-eslint/no-implied-eval": "off",
+        '@typescript-eslint/no-misused-promises': 'off'
       }
      }
    ]
