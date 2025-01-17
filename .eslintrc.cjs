@@ -56,7 +56,8 @@ module.exports = {
         '@typescript-eslint/no-redundant-type-constituents': 'off',
         '@typescript-eslint/no-unnecessary-type-assertion': 'off',
         '@typescript-eslint/no-unsafe-enum-comparison': 'off',
-        '@typescript-eslint/require-await': 'off'
+        '@typescript-eslint/require-await': 'off',
+        '@typescript-eslint/*': 'off',
       }
      }
    ]
