@@ -28,14 +28,18 @@ module.exports = {
     '@typescript-eslint/no-unsafe-return': 'off',
     '@typescript-eslint/no-unsafe-call': 'off',
     '@typescript-eslint/no-unsafe-member-access': 'off',
+    '@typescript-eslint/await-thenable': "off" 
   },
   overrides: [
      {
        files: ["mochaSetup.js"],
        parser: "espree", 
-      //  env: {
-      //    "mocha": true
-      //  }
+       env: {
+         "mocha": true
+       },
+       rules: {
+        "@typescript-eslint/await-thenable": "off"
+      }
      }
    ]
 };
