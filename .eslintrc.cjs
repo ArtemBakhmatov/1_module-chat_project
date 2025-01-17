@@ -34,7 +34,8 @@ module.exports = {
     "@typescript-eslint/no-floating-promises": "off",
     "@typescript-eslint/no-implied-eval": "off",
     '@typescript-eslint/no-misused-promises': 'off',
-    '@typescript-eslint/no-redundant-type-constituents': 'off'
+    '@typescript-eslint/no-redundant-type-constituents': 'off',
+    '@typescript-eslint/no-unnecessary-type-assertion': 'off'
   },
   overrides: [
      {
@@ -50,7 +51,8 @@ module.exports = {
         "@typescript-eslint/no-floating-promises": "off",
         "@typescript-eslint/no-implied-eval": "off",
         '@typescript-eslint/no-misused-promises': 'off',
-        '@typescript-eslint/no-redundant-type-constituents': 'off'
+        '@typescript-eslint/no-redundant-type-constituents': 'off',
+        '@typescript-eslint/no-unnecessary-type-assertion': 'off'
       }
      }
    ]
