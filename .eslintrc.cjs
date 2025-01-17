@@ -31,9 +31,9 @@ module.exports = {
   },
   overrides: [
      {
-       "files": ["mochaSetup.js"],
-       "parser": "espree", // Использовать стандартный парсер для JavaScript
-       "env": {
+       files: ["mochaSetup.js"],
+       //parser: "espree", 
+       env: {
          "mocha": true
        }
      }
