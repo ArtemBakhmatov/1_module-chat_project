@@ -30,7 +30,8 @@ module.exports = {
     '@typescript-eslint/no-unsafe-member-access': 'off',
     '@typescript-eslint/await-thenable': "off",
     '@typescript-eslint/no-base-to-string': "off",
-    "@typescript-eslint/no-duplicate-type-constituents": "off"
+    "@typescript-eslint/no-duplicate-type-constituents": "off",
+    "@typescript-eslint/no-floating-promises": "off"
   },
   overrides: [
      {
@@ -42,7 +43,8 @@ module.exports = {
        rules: {
         "@typescript-eslint/await-thenable": "off",
         "@typescript-eslint/no-base-to-string": "off",
-        "@typescript-eslint/no-duplicate-type-constituents": "off"
+        "@typescript-eslint/no-duplicate-type-constituents": "off",
+        "@typescript-eslint/no-floating-promises": "off"
       }
      }
    ]
