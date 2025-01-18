@@ -32,15 +32,15 @@ module.exports = {
 
   },
   overrides: [
-     {
-       files: ["mochaSetup.js"],
-       parser: "espree", 
-       env: {
-         "mocha": true
-       },
-       rules: {
+    {
+      files: ['mochaSetup.js'],
+      parser: 'espree', 
+      env: {
+        'mocha': true,
+      },
+      rules: {
         
-      }
-     }
-   ]
+      },
+    },
+  ],
 };
