@@ -39,7 +39,7 @@ module.exports = {
         'mocha': true,
       },
       rules: {
-        
+        '@typescript-eslint/*': 'off',
       },
     },
   ],
