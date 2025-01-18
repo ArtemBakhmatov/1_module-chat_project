@@ -15,12 +15,6 @@
     "prepare": "husky install",
     "pre-commit": "npm-run-all test lint"
   },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm-run-all test lint",
-      "pre-push": "npm-run-all test lint"
-    }
-  },
   "devDependencies": {
     "@types/chai": "^5.0.1",
     "@types/jsdom": "^21.1.7",
